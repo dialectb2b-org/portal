@@ -1,6 +1,5 @@
 name: Push-to-Production-Server
 
-# Trigger deployment only on push to master branch
 on:
   push:
     branches:
