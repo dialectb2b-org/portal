@@ -50,7 +50,7 @@
                     <main class="mt-6">
                         <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                             <h2>Welcome to Dialectb2b.com</h2>
-                            <p>Attempt 1</p>
+                            <p>Attempt 2</p>
                             <ul>
                                 @foreach($categories as $key => $category)
                                     <li>{{ $category->name }}</li>
