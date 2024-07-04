@@ -32,6 +32,7 @@
     <div class="container">
         <img src="{{ asset('coming-soon-ico.svg') }}" alt="Coming Soon"><br>
         <img src="{{ asset('coming-soon.svg') }}" alt="Coming Soon">
+        <h1>...</h1>
     </div>
 </body>
 </html>
