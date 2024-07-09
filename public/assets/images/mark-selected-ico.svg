@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="14" viewBox="0 0 16 14">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2320" data-name="Rectangle 2320" width="16" height="14" transform="translate(614.199 64.258)" fill="#eefafc"/>
+    </clipPath>
+  </defs>
+  <g id="mark-selected-ico" transform="translate(-614.199 -64.258)" clip-path="url(#clip-path)">
+    <g id="_9054857_bx_select_multiple_icon" data-name="9054857_bx_select_multiple_icon" transform="translate(615.139 64.198)">
+      <path id="Path_4325" data-name="Path 4325" d="M122.684,37.6h-8.472a1.413,1.413,0,0,0-1.412,1.412v8.472a1.413,1.413,0,0,0,1.412,1.412h8.472a1.413,1.413,0,0,0,1.412-1.412V39.012A1.413,1.413,0,0,0,122.684,37.6Zm-8.472,9.884V39.012h8.472v8.472Z" transform="translate(-109.976 -37.6)" fill="#fff"/>
+      <path id="Path_4326" data-name="Path 4326" d="M39.012,120.708H37.6v8.472a1.413,1.413,0,0,0,1.412,1.412h8.472V129.18H39.012Zm6.307,2.484L44.1,121.974l-1,1,2.311,2.311,4.026-4.829-1.086-.905Z" transform="translate(-37.6 -116.472)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

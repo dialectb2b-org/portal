@@ -1,0 +1,26 @@
+<svg id="double-calls-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57.391" height="33.061" viewBox="0 0 57.391 33.061">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1034" data-name="Rectangle 1034" width="24.391" height="33.061" transform="translate(33)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_1035" data-name="Rectangle 1035" width="24.391" height="33.061" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_5182" data-name="Group 5182">
+    <g id="Group_5170" data-name="Group 5170" style="isolation: isolate">
+      <g id="Group_5169" data-name="Group 5169">
+        <g id="Group_5168" data-name="Group 5168" clip-path="url(#clip-path)">
+          <path id="Path_12290" data-name="Path 12290" d="M33.391,0h24V33s-28,3-24-33" fill="#cdd0d9"/>
+        </g>
+      </g>
+    </g>
+    <g id="Group_5173" data-name="Group 5173" style="isolation: isolate">
+      <g id="Group_5172" data-name="Group 5172">
+        <g id="Group_5171" data-name="Group 5171" clip-path="url(#clip-path-2)">
+          <path id="Path_12291" data-name="Path 12291" d="M.391,0h24V33s-28,3-24-33" fill="#cdd0d9"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19" height="19" viewBox="0 0 19 19">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_3187" data-name="Rectangle 3187" width="19" height="19" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="to-do-ico" transform="translate(0 0)">
+    <g id="Group_10478" data-name="Group 10478" transform="translate(0 0)" clip-path="url(#clip-path)">
+      <path id="Path_5749" data-name="Path 5749" d="M14.826,1.71H4.164A4.157,4.157,0,0,0,0,5.862v8.985A4.157,4.157,0,0,0,4.164,19H14.826A4.166,4.166,0,0,0,19,14.847V5.862A4.166,4.166,0,0,0,14.826,1.71M17.27,14.527a2.911,2.911,0,0,1-2.917,2.9H4.637a2.9,2.9,0,0,1-2.907-2.9V6.182A2.894,2.894,0,0,1,4.637,3.291h9.716A2.9,2.9,0,0,1,17.27,6.182Z" transform="translate(0 0.001)" fill="#061839"/>
+      <path id="Path_5750" data-name="Path 5750" d="M4.309,5.258h0a.885.885,0,0,1-.888-.883V.883A.888.888,0,0,1,5.2.883V4.374a.885.885,0,0,1-.888.883" transform="translate(0.02 0)" fill="#061839"/>
+      <path id="Path_5751" data-name="Path 5751" d="M9.5,5.258h0a.885.885,0,0,1-.888-.883V.883a.888.888,0,0,1,1.776,0V4.374a.885.885,0,0,1-.888.883" transform="translate(0.05 0)" fill="#061839"/>
+      <path id="Path_5752" data-name="Path 5752" d="M13.586,7.872a.891.891,0,0,0-1.256,0L8.723,11.46,7.554,10.3a.89.89,0,0,0-1.255,0,.879.879,0,0,0,0,1.249l1.778,1.77a.891.891,0,0,0,1.256,0c.005-.005.006-.011.011-.016a.852.852,0,0,0,.12-.079l4.122-4.1a.88.88,0,0,0,0-1.25" transform="translate(0.035 0.004)" fill="#061839"/>
+    </g>
+  </g>
+</svg>

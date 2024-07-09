@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="137" height="88.165" viewBox="0 0 137 88.165">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2329" data-name="Rectangle 2329" width="137" height="88.165" fill="#ec2531"/>
+    </clipPath>
+  </defs>
+  <g id="payment-conf-ico" transform="translate(0 0)">
+    <path id="Path_4317" data-name="Path 4317" d="M40.491,55.649,23.628,38.58l5.666-5.6,9.85,9.97L59.609,10.871l6.715,4.281Z" transform="translate(23.524 10.823)" fill="#ec2531"/>
+    <g id="Group_9222" data-name="Group 9222" transform="translate(0 0)">
+      <g id="Group_9221" data-name="Group 9221" clip-path="url(#clip-path)">
+        <path id="Path_4318" data-name="Path 4318" d="M56.317,88.165A44.082,44.082,0,1,1,100.4,44.081,44.132,44.132,0,0,1,56.317,88.165m0-82.178A38.1,38.1,0,1,0,94.412,44.081,38.138,38.138,0,0,0,56.317,5.987" transform="translate(12.183 0)" fill="#ec2531"/>
+        <rect id="Rectangle_2323" data-name="Rectangle 2323" width="13.093" height="1.996" transform="translate(0 43.086)" fill="#ec2531"/>
+        <rect id="Rectangle_2324" data-name="Rectangle 2324" width="1.995" height="13.094" transform="translate(7.145 16.735) rotate(-44.994)" fill="#ec2531"/>
+        <rect id="Rectangle_2325" data-name="Rectangle 2325" width="13.092" height="1.995" transform="translate(7.145 70.995) rotate(-45)" fill="#ec2531"/>
+        <rect id="Rectangle_2326" data-name="Rectangle 2326" width="13.093" height="1.996" transform="translate(123.907 43.086)" fill="#ec2531"/>
+        <rect id="Rectangle_2327" data-name="Rectangle 2327" width="13.094" height="1.995" transform="translate(119.187 24.584) rotate(-45)" fill="#ec2531"/>
+        <rect id="Rectangle_2328" data-name="Rectangle 2328" width="1.995" height="13.092" transform="translate(119.187 63.148) rotate(-45)" fill="#ec2531"/>
+      </g>
+    </g>
+  </g>
+</svg>

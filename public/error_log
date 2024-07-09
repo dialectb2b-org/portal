@@ -1,0 +1,4 @@
+[19-Oct-2023 04:46:02 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\CategoryPurchaseController::cart() in /home2/simbitx6/portal.simbillsoft.in/app/Http/Controllers/CategoryPurchaseController.php on line 40
+[22-Nov-2023 05:03:05 UTC] PHP Fatal error:  Unparenthesized `a ? b : c ? d : e` is not supported. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home2/simbitx6/portal.simbillsoft.in/app/Http/Controllers/Admin/AdminHomeController.php on line 50
+[15-Jan-2024 06:08:29 UTC] PHP Fatal error:  Cannot use App\Models\EnquiryRelation as EnquiryRelation because the name is already in use in /home2/simbitx6/portal.simbillsoft.in/app/Http/Controllers/Admin/AdminReportController.php on line 16
+[26-Jan-2024 12:11:11 UTC] PHP Fatal error:  Cannot use lexical variable $message as a parameter name in /home2/simbitx6/portal.simbillsoft.in/app/Http/Controllers/Initiator/DeclarationController.php on line 163
