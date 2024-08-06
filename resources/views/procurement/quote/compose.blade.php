@@ -457,10 +457,8 @@
                 console.log(error);
             });
         }
-        
-    });
 
-    function setCountryChange(country_id){
+        function setCountryChange(country_id){
         var regionAction = "{{ route('getRegionByCountry') }}";
         axios.post(regionAction, {id:country_id})
         .then((response) => {
@@ -510,6 +508,10 @@
         var changeEvent = new Event("change");
         fileInput.dispatchEvent(changeEvent);
     }
+        
+    });
+
+    
     
     
   </script>
