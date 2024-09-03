@@ -43,7 +43,7 @@
                                 <div class="list-item-inner blue-border">
                                     <small class="text-primary bid-date">{{ $enquiry->enquiry->sub_category->name }}</small>
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h3>{{ $enquiry->enquiry->sender->company->name }}</h3>
+                                        <h3>{{ $enquiry?->enquiry?->sender?->?company?->name }}</h3>
                                     </div>
                                     <div class="d-flex w-100 justify-content-between">
                                         <div>
