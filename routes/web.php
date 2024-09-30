@@ -260,7 +260,7 @@ Route::group(['middleware' => 'check.role:2'],function() {
         Route::post('/procurement/report', [ProcurementHomeController::class,'report'])->name('procurement.report');
         
     // Bid Inbox Starts
-        Route::any('/procurement/dashboard/{ref?}', [ProcurementHomeController::class,'index'])->name('procurement.dashboard');
+        Route::any('/procurement/dashboard/{ref?}/{reply_id?}', [ProcurementHomeController::class, 'index'])->name('procurement.dashboard');
         Route::any('/procurement/fetch-all-enquiries', [ProcurementHomeController::class,'fetchAllEnquiries'])->name('procurement.fetchAllEnquiries');
         Route::any('/procurement/fetch-enquiry', [ProcurementHomeController::class,'fetchEnquiry'])->name('procurement.fetchEnquiry');
         Route::any('/procurement/skip-faq', [ProcurementHomeController::class,'skipFaq'])->name('procurement.skipFaq');

@@ -372,11 +372,17 @@
 
     <input type="hidden" id="skip-faq-url" value="{{ route('procurement.skipFaq') }}" />
     <input type="hidden" id="report-action-url" value="{{ route('procurement.report') }}" />
-    @push('scripts')
+    <input type="hidden" id="highlightedReplyId" value="{{ $highlighted_reply_id }}" />
 
+    @push('scripts')
    <script>
-        jQuery.noConflict();
+      jQuery.noConflict();
       jQuery(document).ready(function($) {
+
+            var highlighted_id = $('#highlightedReplyId').val();
+            if(highlighted_id){
+                setTimeout(fetchBidDetails(highlighted_id),2000);
+            }
 
             $('body').on('click','.search_filter',function(){
             
@@ -535,18 +541,15 @@
             });
 
             
-
-            $('body').on('click','.bid-detail',function () {
-                
-                $('.bid-open').empty();
-                $('.bid-tap, .questions-ask').hide('500');
-                $('.bid-open').show('500');
-                $('.scnd-section-main').removeClass('col-md-9');
-                $('.scnd-section-main').addClass('col-md-6');
-                var reply_id = $(this).data('reply_id');
+            function fetchBidDetails(reply_id){
                 var readReplyAction = "{{ route('procurement.readReply') }}";
                 axios.post(readReplyAction, {reply_id:reply_id})
                     .then((response) => {
+                        $('.bid-open').empty();
+                        $('.bid-tap, .questions-ask').hide('500');
+                        $('.bid-open').show('500');
+                        $('.scnd-section-main').removeClass('col-md-9');
+                        $('.scnd-section-main').addClass('col-md-6');
                         var reply = response.data.reply;
                                 $(this).find('.status-change').text(reply.status_text);  
                                 $('.bid-open').append(`<div class="bid-detail-head">
@@ -654,6 +657,10 @@
                         // Handle error response
                         
                     });
+            }
+            $('body').on('click','.bid-detail',function () {
+                var reply_id = $(this).data('reply_id');
+                setTimeout(fetchBidDetails(reply_id),2000);
             });
 
             $('body').on('click','.cross-second',function () {

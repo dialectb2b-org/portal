@@ -49,7 +49,7 @@ class ProcurementHomeController extends Controller
         $this->procurementService = $procurementService;
     }
     
-    public function index(Request $request,$ref = null){
+ /*   public function index(Request $request,$ref = null){
         
         $user = auth()->user();
         if($user->token != ''){
@@ -104,7 +104,72 @@ class ProcurementHomeController extends Controller
         $members = $this->procurementService->getCompanyMembers();
         
         return view('procurement.inbox.index',compact('enquiries','selected_enquiry','members'));
+    } */
+
+    public function index(Request $request, $ref = null, $reply_id = null)
+    {
+        $user = auth()->user();
+       
+        if ($user->token != '') {
+            $user->update(['token' => '']);
+        }
+        
+        $query = Enquiry::select('id', 'reference_no', 'created_at', 'expired_at', 'subject')
+                        ->with('all_replies')
+                        ->verified()
+                        ->where('from_id', $user->id)
+                        ->where('is_draft', 0);
+
+        if (!is_null($request->keyword)) {
+            $query->where(function ($q) use ($request) {
+                $q->where('reference_no', 'like', '%' . $request->keyword . '%')
+                ->orWhere('subject', 'like', '%' . $request->keyword . '%');
+            });
+        }
+
+        if ($request->mode_filter == 'today') {
+            $query->whereDate('enquiries.created_at', Carbon::today());
+        } else if ($request->mode_filter == 'yesterday') {
+            $query->whereDate('enquiries.created_at', Carbon::yesterday());
+        } else if ($request->mode_filter == 'this_week') {
+            $query->whereBetween('enquiries.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+        } else if ($request->mode_filter == 'last_week') {
+            $query->whereBetween('enquiries.created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]);
+        } else if ($request->mode_filter == 'this_month') {
+            $query->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()]);
+        } else if ($request->mode_filter == 'last_month') {
+            $query->whereBetween('created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()]);
+        }
+
+
+        $enquiries = $query->notShared()->latest()->get();
+
+        $selected_enquiry = null;
+        $highlighted_reply_id = null;
+
+        if ($enquiries->isNotEmpty()) {
+            if ($ref) {
+                $reference_no = Crypt::decryptString($ref);
+                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company', 'open_faqs', 'closed_faqs', 'pending_replies', 'shortlisted_replies')
+                                            ->where('reference_no', $reference_no)
+                                            ->first();
+            } else {
+                $ref = $enquiries->first()->reference_no;
+                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company', 'open_faqs', 'closed_faqs', 'pending_replies', 'shortlisted_replies')
+                                            ->where('reference_no', $ref)
+                                            ->first();
+            }
+
+            if ($reply_id) {
+                $highlighted_reply_id = (int)Crypt::decryptString($reply_id);
+            }
+        }
+
+        $members = $this->procurementService->getCompanyMembers();
+
+        return view('procurement.inbox.index', compact('enquiries', 'selected_enquiry', 'highlighted_reply_id', 'members'));
     }
+
 
     public function fetchAllEnquiries(Request $request){
         

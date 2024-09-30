@@ -351,12 +351,12 @@ $enquiries = $query->notExpired()->notReplied()->get();
                 ]);
                 
             $encryptedRefNo = Crypt::encryptString($enquiry->reference_no); 
-            
-            if($enquiry->sender_type == 2){
-                $action_url = url('procurement/dashboard/'.$encryptedRefNo);
-            }
-            else{
-                $action_url = url('member/dashboard/'.$encryptedRefNo);
+            $encryptedReplyId = Crypt::encryptString((string)$reply->id);
+           
+            if($enquiry->sender_type == 2) {
+                $action_url = url('procurement/dashboard/'.$encryptedRefNo.'/'.$encryptedReplyId);
+            } else {
+                $action_url = url('member/dashboard/'.$encryptedRefNo.'/'.$encryptedReplyId);
             }
                 
             PortalTodo::create([
@@ -367,7 +367,7 @@ $enquiries = $query->notExpired()->notReplied()->get();
                 'message' => 'Proposal Received',
                 'action_url' => $action_url 
             ]);    
-                
+            
             DB::commit();
             return response()->json([
                 'status' => true,
