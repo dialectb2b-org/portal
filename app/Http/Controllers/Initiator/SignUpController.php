@@ -73,8 +73,7 @@ class SignUpController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'OTP Send!',
-                'user' => $user,
-                'otp' => $otp
+                'user' => $user
             ], 200);
 
         } catch (\Throwable $th) {
