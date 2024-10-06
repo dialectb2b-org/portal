@@ -116,13 +116,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+     jQuery.noConflict();
+     jQuery(document).ready(function($) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    $(document).ready(function() {
+   
         $('.subcategory-section').hide();
         $('.loader').hide();
         var company = JSON.parse(localStorage.getItem('company'));
@@ -158,67 +160,69 @@
                 console.log(error);
             });
         });
-    });
+   
 
-    $('.alpha').click(function(e) {
-        e.preventDefault(); 
-        var alpha = $(this).data('alpha');
-        var action = "{{ route('sign-up.business-category.alpha') }}";
-        axios.post(action,{alpha:alpha})
-        .then((response) => {
+        $('.alpha').click(function(e) {
+            e.preventDefault(); 
+            var alpha = $(this).data('alpha');
+            var action = "{{ route('sign-up.business-category.alpha') }}";
+            axios.post(action,{alpha:alpha})
+            .then((response) => {
+                $('#category-list').empty();
+                response.data.categories.forEach((item, i) => {
+                    $('#category-list').append('<li><a href="#" class="category" data-id="'+item.id+'">'+item.name+'</a></li>')
+                });
+            })
+            .catch((error) => {
+                // Handle error response
+                //console.log(error);
+            });
+        });
+
+        $(document).on('click', '.subcategory', function (e) {
+            e.preventDefault();
+            var activityId = $(this).data('id');
+            var action = "{{ route('member.quote.saveCategory') }}";
+            var data = { 'id' : activityId }
+            axios.post(action,data)
+            .then((response) => {
+                // Handle success response
+                //console.log(response.data.message);
+                if(response.data.status === true){
+                    let id = response.data.data.id;
+                    window.location.href = '/member/quote/compose/'+id;
+                }
+                else{
+                    Swal.fire('Warning!', 'Something went wrong. Try Again!', 'warning');
+                }
+            })
+            .catch((error) => {
+                // Handle error response
+                //console.log(error.response.data.message)
+                Swal.fire('Warning!', error.response.data.message, 'warning');
+            });
+        });
+
+        $('#search').on('keyup', (e) => {
+            $('.subcategory-section').hide();
             $('#category-list').empty();
-            response.data.categories.forEach((item, i) => {
-                $('#category-list').append('<li><a href="#" class="category" data-id="'+item.id+'">'+item.name+'</a></li>')
+            let data = { 'search' : e.target.value }
+            var searchAction = "{{ route('sign-up.business-category.search') }}";
+            axios.post(searchAction, data)
+            .then((response) => {
+                // Handle success response
+                $('#category-list').empty();
+                response.data.forEach((item, i) => {
+                    $('#category-list').append('<li><a href="#" class="subcategory" data-id="'+item.id+'">'+item.name+'</a></li>')
+                });
+            })
+            .catch((error) => {
+                // Handle error response
+                
             });
         })
-        .catch((error) => {
-            // Handle error response
-            //console.log(error);
-        });
-    });
 
-    $(document).on('click', '.subcategory', function (e) {
-        e.preventDefault();
-        var activityId = $(this).data('id');
-        var action = "{{ route('member.quote.saveCategory') }}";
-        var data = { 'id' : activityId }
-        axios.post(action,data)
-        .then((response) => {
-            // Handle success response
-            //console.log(response.data.message);
-            if(response.data.status === true){
-                let id = response.data.data.id;
-                window.location.href = '/member/quote/compose/'+id;
-            }
-            else{
-                Swal.fire('Warning!', 'Something went wrong. Try Again!', 'warning');
-            }
-        })
-        .catch((error) => {
-            // Handle error response
-            //console.log(error.response.data.message)
-            Swal.fire('Warning!', error.response.data.message, 'warning');
-        });
     });
-
-    $('#search').on('keyup', (e) => {
-        $('.subcategory-section').hide();
-        $('#category-list').empty();
-        let data = { 'search' : e.target.value }
-        var searchAction = "{{ route('sign-up.business-category.search') }}";
-        axios.post(searchAction, data)
-        .then((response) => {
-            // Handle success response
-            $('#category-list').empty();
-            response.data.forEach((item, i) => {
-                $('#category-list').append('<li><a href="#" class="subcategory" data-id="'+item.id+'">'+item.name+'</a></li>')
-            });
-        })
-        .catch((error) => {
-            // Handle error response
-            
-        });
-    })
 
 </script>
 @endpush  

@@ -27,6 +27,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 
 class MemberReviewListController extends Controller
@@ -73,7 +74,8 @@ class MemberReviewListController extends Controller
       $selected_enquiry = null;
         if ($enquiries->isNotEmpty()) {
             if($ref){
-                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies','selected_replies')->where('reference_no',$ref)->first(); 
+                $reference_no = Crypt::decryptString($ref);
+                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies','selected_replies')->where('reference_no',$reference_no)->first(); 
             }
             else{
                 $ref = $enquiries->first()->reference_no;
@@ -157,7 +159,8 @@ public function fetchEnquiry(Request $request){
         $selected_enquiry = null;
         if ($enquiries->isNotEmpty()) {
             if($ref){
-                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies','selected_replies','action_replies')->where('reference_no',$ref)->first(); 
+                $reference_no = Crypt::decryptString($ref);
+                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies','selected_replies','action_replies')->where('reference_no',$reference_no)->first(); 
             }
             else{
                 $ref = $enquiries->first()->reference_no;

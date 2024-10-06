@@ -39,7 +39,7 @@
 
                     <div id="inbox-list" class="list-group">
                         @forelse($enquiries as $key => $enquiry)
-                            <a href="{{ route('member.dashboard',$enquiry->reference_no) }}" class="list-group-item list-group-item-action flex-column align-items-start enquiry_item">
+                            <a href="{{ route('member.dashboard', ['ref' => Crypt::encryptString($enquiry->reference_no)]) }}" class="list-group-item list-group-item-action flex-column align-items-start enquiry_item">
                                 <div class="list-item-inner blue-border">
                                     <h2 class="mb-2 round-bullet">{{ $enquiry->reference_no }}</h2>
                                     <div class="d-flex w-100 justify-content-between">
@@ -392,10 +392,9 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $( function() {
+        jQuery.noConflict();
+        jQuery(document).ready(function($) {
             
-         
-
             // Get the current date
             var currentDate = new Date();
 
@@ -925,7 +924,7 @@
                         }      
                     });
                 });
-            });
+            
 
         $('body').on('click','.sort_status',function() {
             var status = $(this).data('status');
@@ -1172,6 +1171,8 @@
 
             bids.forEach((bid) => bidList.appendChild(bid));
         }
+
+    });
 
         
    

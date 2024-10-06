@@ -51,7 +51,7 @@
                     <div class="tabcontent3" id="sent" style="display: block;">
                         <div id="send-list" class="list-group">
                             @forelse($enquiries as $key => $enquiry)
-                                <a href="{{ route('member.reviewList.send',$enquiry->reference_no) }}" class="list-group-item list-group-item-action flex-column align-items-start enquiry_item sent-bg-color">
+                                <a href="{{ route('member.reviewList.send', ['ref' => Crypt::encryptString($enquiry->reference_no)]) }}" class="list-group-item list-group-item-action flex-column align-items-start enquiry_item sent-bg-color">
                                     <div class="list-item-inner blue-border">
                                         <i class="d-flex sent-to">Sent to {{ $enquiry->shared->name }}</i>
                                         <div class="d-flex justify-content-between">
@@ -459,7 +459,8 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $( function() {        
+   jQuery.noConflict();
+   jQuery(document).ready(function($) {
 
         $('body').on('click','.search_filter',function(){
             
@@ -858,7 +859,7 @@
         
 
 
-    });
+   
 
 
     function openEnquiry(id){
@@ -1330,6 +1331,8 @@
 
             bids.forEach((bid) => bidList.appendChild(bid));
         }
+
+    });
     </script>
 @endpush
  

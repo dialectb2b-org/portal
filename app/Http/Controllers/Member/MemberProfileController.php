@@ -19,6 +19,7 @@ use DB;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 
 class MemberProfileController extends Controller

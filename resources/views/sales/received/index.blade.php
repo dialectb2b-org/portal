@@ -422,7 +422,7 @@
                                 toast.addEventListener('mouseleave', Swal.resumeTimer)
                             }
                         });
-                        window.location.reload();
+                        window.location.replace("{{ route('sales.dashboard') }}");
                     })
                     .catch((error) => { 
                         // Handle error response

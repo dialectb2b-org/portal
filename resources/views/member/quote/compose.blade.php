@@ -157,49 +157,33 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- include tiny mce -->
-<!--<script src="{{ asset('assets/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>-->
 <script src="{{ asset('jodit/jodit.min.js') }}"></script>
 <script>
-    $( function() {
-
-         var editor = new Jodit('#body', {
-            toolbarButtonSize: 'large',
-            buttons: 'bold,italic,underline,strikethrough,subscript,superscript,|,ul,ol,|,spellcheck,find,|,align,eraser,font,fontsize,classSpan,paragraph,|,cut,copy,paste,|,link,table,|,indent,outdent,|,undo,redo,|,selectAll,hr', 
-            hotkeys: {
-        		redo: 'ctrl+z',
-        		undo: 'ctrl+y,ctrl+shift+z',
-        		indent: 'ctrl+]',
-        		outdent: 'ctrl+[',
-        		bold: 'ctrl+b',
-        		italic: 'ctrl+i',
-        		removeFormat: 'ctrl+shift+m',
-        		insertOrderedList: 'ctrl+shift+7',
-        		insertUnorderedList: 'ctrl+shift+8',
-        		openSearchDialog: 'ctrl+f',
-        		openReplaceDialog: 'ctrl+r'
-        	}
-        });
+    jQuery.noConflict();
+    jQuery(document).ready(function($) {
+       
+        var editor;
         
-        //   tinymce.init({
-        //     selector: 'textarea#body',
-        //     menubar: false,
-        //     plugins: 'anchor autolink charmap emoticons link lists searchreplace table visualblocks wordcount checklist casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss contextmenu paste ',
-        //     toolbar: 'undo redo cut copy paste | fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat', //blocks
-        //     toolbar_location: 'bottom',
-        //     tinycomments_mode: 'embedded',
-        //     paste_as_text: true,
-        //     elementpath: false,
-        //     branding: false,
-        //     paste_data_images: true,
-        //     contextmenu: "paste | link image inserttable | cell row column deletetable",
-        //     skin: 'oxide',
-        //     setup: function (ed) {
-        //         ed.on('init', function (e) {
-        //             ed.execCommand("fontName", false, "Verdana");
-        //         });
-        //     }
-        // });
+        editor = new Jodit('textarea#body', {
+                        toolbarButtonSize: "small",
+                        buttons: 'bold,italic,underline,strikethrough,subscript,superscript,|,ul,ol,|,spellcheck,find,|,align,eraser,font,fontsize,classSpan,paragraph,|,cut,copy,paste,|,link,table,|,indent,outdent,|,undo,redo,|,selectAll,hr', 
+                        hotkeys: {
+                    		redo: 'ctrl+z',
+                    		undo: 'ctrl+y,ctrl+shift+z',
+                    		indent: 'ctrl+]',
+                    		outdent: 'ctrl+[',
+                    		bold: 'ctrl+b',
+                    		italic: 'ctrl+i',
+                    		removeFormat: 'ctrl+shift+m',
+                    		insertOrderedList: 'ctrl+shift+7',
+                    		insertUnorderedList: 'ctrl+shift+8',
+                    		openSearchDialog: 'ctrl+f',
+                    		openReplaceDialog: 'ctrl+r'
+                    	},
+                        minHeight: 350,
+                    });
+        
+       console.log(editor);
 
         var country_id = $('.country  option:selected').val();
         // Document
@@ -465,7 +449,7 @@
             });
         }
         
-    });
+    
 
     function setCountryChange(country_id){
         var regionAction = "{{ route('getRegionByCountry') }}";
@@ -517,6 +501,9 @@
         var changeEvent = new Event("change");
         fileInput.dispatchEvent(changeEvent);
     }
+
+
+});
     
     
   </script>

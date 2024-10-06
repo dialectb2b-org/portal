@@ -130,5 +130,18 @@ class ProProfileController extends Controller
             ], 200);
     }
 
+    public function destroyTodo($id)
+    {
+        $todo = PortalTodo::find($id);
+    
+        if (!$todo) {
+            return response()->json(['message' => 'Todo not found'], 404);
+        }
+    
+        $todo->delete();
+    
+        return response()->json(['message' => 'Todo deleted successfully'], 200);
+    }
+
 }
 

@@ -26,6 +26,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 
 class MemberHomeController extends Controller
@@ -35,7 +36,7 @@ class MemberHomeController extends Controller
       $this->middleware('auth');
     }
     
-    public function index(Request $request, $ref = null){
+    public function index(Request $request, $ref = null, $reply_id = null){
         $user = auth()->user();
         if($user->token != ''){
             $user->update(['token'=>'']);
@@ -74,17 +75,24 @@ class MemberHomeController extends Controller
         $enquiries = $query->notShared()->latest()->get();
         
         $selected_enquiry = null;
+        $highlighted_reply_id = null;
+
         if ($enquiries->isNotEmpty()) {
             if($ref){
-                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies')->where('reference_no',$ref)->first(); 
+                $reference_no = Crypt::decryptString($ref);
+                $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies')->where('reference_no',$reference_no)->first(); 
             }
             else{
                 $ref = $enquiries->first()->reference_no;
                 $selected_enquiry = Enquiry::with('all_replies', 'sender', 'sender.company','open_faqs','closed_faqs','pending_replies','shortlisted_replies')->where('reference_no',$ref)->first(); 
             }
         }
+
+        if ($reply_id) {
+            $highlighted_reply_id = (int)Crypt::decryptString($reply_id);
+        }
         
-        return view('member.inbox.index',compact('members','enquiries','selected_enquiry'));
+        return view('member.inbox.index',compact('members','enquiries','selected_enquiry','highlighted_reply_id'));
     }
 
     public function fetchAllEnquiries(Request $request){

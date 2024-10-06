@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 
 class MemberCompletedBiddingController extends Controller

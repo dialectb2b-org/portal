@@ -326,6 +326,7 @@ Route::group(['middleware' => 'check.role:2'],function() {
         
          Route::get('/procurement/notifications', [ProProfileController::class,'notification'])->name('procurement.notification'); 
          Route::get('/procurement/todos', [ProProfileController::class,'todo'])->name('procurement.todos'); 
+         Route::delete('/todos/{id}', [ProProfileController::class, 'destroyTodo'])->name('todos.destroy');
         
          Route::get('/procurement/invite',  [InviteController::class,'index'])->name('invite');
          Route::post('/procurement/send-invite',  [InviteController::class,'sendInvite'])->name('sendInvite');

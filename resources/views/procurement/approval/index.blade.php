@@ -159,13 +159,7 @@
     
     <script>
     
-         function showLoading() {
-            $('.btn-secondary').attr('disabled', true).addClass('btn-loading').html('Approving...');
-        }
         
-        function hideLoading() {
-            $('.btn-secondary').attr('disabled', false).removeClass('btn-loading').html('Approve');
-        }
         
         jQuery.noConflict();
         jQuery(document).ready(function($) {
@@ -274,6 +268,14 @@
                 event.preventDefault(); 
             });
             
+            function showLoading() {
+            $('.btn-secondary').attr('disabled', true).addClass('btn-loading').html('Approving...');
+        }
+        
+        function hideLoading() {
+            $('.btn-secondary').attr('disabled', false).removeClass('btn-loading').html('Approve');
+        }
+        
             //end
 
         });

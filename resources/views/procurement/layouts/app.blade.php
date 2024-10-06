@@ -109,6 +109,24 @@
                 $('.close-big').click(() => {
                     $('.drop-todo').removeClass('open').addClass('hidden');
                 });
+
+                $('body').on('click', '.close-small', function() {
+                    var id = $(this).data('id');
+
+                    axios.delete(`/todos/${id}`)
+                        .then((response) => {
+                            console.log(response.data.message);
+                            $(this).closest('li').remove(); 
+                        })
+                        .catch((error) => {
+                            // Handle the error
+                            if (error.response) {
+                                console.log(error.response.data.message);
+                            } else {
+                                console.log('An error occurred');
+                            }
+                        });
+                });
                 
                 $('.dummy-btn').click(() => {
                     $('.drop-todo').removeClass('hidden').addClass('open');

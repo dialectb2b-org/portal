@@ -164,12 +164,12 @@ class SalesHomeController extends Controller
         // $enquiries = $query->notExpired()->notReplied()->get();
         
         $query = EnquiryRelation::with([
-    'enquiry',
-    'enquiry.sub_category',
-    'enquiry.sender.company',
-    'enquiry.all_faqs',
-    'enquiry.my_faqs'
-])->where('to_id', $user->id);
+            'enquiry',
+            'enquiry.sub_category',
+            'enquiry.sender.company',
+            'enquiry.all_faqs',
+            'enquiry.my_faqs'
+        ])->where('to_id', $user->id);
 
 $query->whereHas('enquiry', function ($query) use ($request) {
     $query->whereNull('enquiries.shared_to')

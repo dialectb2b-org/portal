@@ -55,7 +55,8 @@
     @stack('scripts')
     <script>
 
-$(document).ready(function () {
+jQuery.noConflict();
+jQuery(document).ready(function($) {
            var notificationAction = "{{ route('member.notification') }}";
             axios.get(notificationAction)
                  .then((response) => {
@@ -104,12 +105,30 @@ $(document).ready(function () {
                 $('.close-big').click(() => {
                     $('.drop-todo').removeClass('open').addClass('hidden');
                 });
+
+                $('body').on('click', '.close-small', function() {
+                    var id = $(this).data('id');
+
+                    axios.delete(`/todos/${id}`)
+                        .then((response) => {
+                            console.log(response.data.message);
+                            $(this).closest('li').remove(); 
+                        })
+                        .catch((error) => {
+                            // Handle the error
+                            if (error.response) {
+                                console.log(error.response.data.message);
+                            } else {
+                                console.log('An error occurred');
+                            }
+                        });
+                });
                 
                 $('.dummy-btn').click(() => {
                     $('.drop-todo').removeClass('hidden').addClass('open');
                 });
                 
-     });
+ 
      
      
   function openCity5(evt, cityName) {
@@ -146,7 +165,7 @@ function myFunction() {
 
 
 
-        $(document).ready(function () {
+       
             $('.nav-expand-ico').click(function () {
                 var toggleWidth = $(".side-nav-main").width() == 285 ? "64px" : "285px";
                 $('.side-nav-main').animate({ width: toggleWidth });
@@ -246,7 +265,7 @@ function myFunction() {
 
             
 
-        });
+      
 
 
         function openCity(evt, cityName) {
@@ -265,7 +284,7 @@ function myFunction() {
 
 
 
-        $(document).ready(function () {
+      
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 200) {
                     $('.header').addClass("sticky");
@@ -300,7 +319,7 @@ function myFunction() {
             });
 
 
-        });
+      
 
 
         var x, i, j, l, ll, selElmnt, a, b, c;
@@ -415,6 +434,8 @@ function myFunction() {
                 }
             });
         @endif
+
+        });
     </script>
 </body>
 
