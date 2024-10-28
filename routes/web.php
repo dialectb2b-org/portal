@@ -82,6 +82,8 @@ Route::post('/store-fcm-token', [FcmController::class, 'storeToken'])->name('sto
 Route::get('/send-push-notification', [FcmController::class, 'sendPushNotification'])->name('send-push-notification');
 
 Route::get('/', [WebsiteController::class,'index']);
+Route::get('/admin', [WebsiteController::class,'index']);
+
 Route::get('/about-us', [WebsiteController::class,'aboutUs']);
 Route::get('/community-guidelines', [WebsiteController::class,'communityGuidelines']);
 Route::get('/faq', [WebsiteController::class,'faq']);
