@@ -3,7 +3,7 @@ name: Push-to-Production-Server
 on:
   push:
     branches:
-      - production
+      - 04-production
 
 jobs:
   deploy:
@@ -20,4 +20,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: "/var/www/html/dialectb2b"
+          TARGET: "/var/www/dialectb2b.com./html/"
