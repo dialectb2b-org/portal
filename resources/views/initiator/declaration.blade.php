@@ -160,7 +160,7 @@
                                         Please read the declaration carefully and select 'agree & download' to proceed.
 
                                         <div class="form-group agree-btn" >
-                                            <a href="{{ route('sign-up.declaration.download') }}" type="button" value="Agree & Download" class="btn btn-secondary">Agree & Download</a>
+                                            <a href="{{ route('sign-up.declaration.download') }}" type="button" value="Agree & Download" onclick="$('#upload-area').show();" class="btn btn-secondary">Agree & Download</a>
                                         </div>
             
 
@@ -168,7 +168,7 @@
         
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12" id="upload-area" style="display: none">
                                     <div id="declaration-upload-area" class="document-upload3 {{ $company->decleration ? 'd-none' : '' }}">
                                     <div id="drop-area" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
                                             <label>Upload the duly signed Registration form here.</label>

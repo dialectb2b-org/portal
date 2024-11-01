@@ -144,7 +144,7 @@
                                                         <div class="invalid-msg2"></div>
                                                     </div>
                                                     <div class="form-group position-relative">
-                                                        <label>Landline No.<span class="mandatory">*</span></label>
+                                                        <label>Landline No.</label>
                                                         <div class="d-flex">
                                                             <input id="country_code" type="text" name="country_code" class="form-control mobile-code" value="{{ $company->country_code ?? '' }}" readonly>
                                                             <input id="landline" type="text" name="landline" class="form-control mobile-number" value="{{ $company->landline }}" placeholder="Landline No" onkeypress="allowNumbersOnly(event)" maxlength="20" tabindex="10" pattern="[0-9]+" title="Alphabets and symbols are allowed">
@@ -213,7 +213,7 @@
                                             </div>
                                             <div class="form-group position-relative">
                                                 <label>Document Expiry Date<span class="mandatory">*</span></label>
-                                                <input id="expiry_date" type="text" name="expiry_date" class="form-control" value="{{ $company->document ?  \Carbon\Carbon::parse($company->document->expiry_date)->format('d-m-Y') : '' }}" placeholder="Expiry Date" min="{{ date('Y-m-d') }}" tabindex="15">
+                                                <input id="expiry_date" type="date" name="expiry_date" class="form-control" min="{{ date('Y-m-d') }}" value="{{ $company->document ?  \Carbon\Carbon::parse($company->document->expiry_date)->format('d-m-Y') : '' }}" placeholder="Expiry Date" min="{{ date('Y-m-d') }}" tabindex="15">
                                                 <div class="invalid-msg2"> </div>
                                             </div>
                                             
@@ -277,13 +277,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script>
-  $( function() {
-    $( "#expiry_date" ).datepicker({
-        dateFormat: 'dd-mm-yy'
-    });
-  } );
+  //$( function() {
+  //  $( "#expiry_date" ).datepicker({
+  //      dateFormat: 'dd-mm-yy'
+  //  });
+  //} );
 </script>
 <script>
+    function clearErrorStates() {
+        // Remove red borders and hide all error messages
+        $('input').removeClass('red-border');
+        $('.invalid-msg2, .region_error, .doc-msg').hide();
+    }
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -504,7 +509,9 @@
                         submitCompanyInfo(action,formData);
                     }
                     else{
-                        window.location.reload();
+                        $('#domain').focus();
+                        $('#submit').prop('disabled',false);
+                        $('.loader').hide();
                     }
                 });
             }
@@ -569,6 +576,7 @@
                     });
                 }
                 if (error.response.status == 422) {
+                    clearErrorStates();
                     $.each(error.response.data.errors, function(field, errors) {
                         if(field === 'region_id'){
                             var region_error = $('.region_error');

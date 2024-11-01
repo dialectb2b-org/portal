@@ -87,12 +87,12 @@ class CompanyInfoController extends Controller
                 'current_plan' => 1
             ]);
 
-            $parsedDate = Carbon::createFromFormat('d-m-Y', $input['expiry_date']);
+            // $parsedDate = Carbon::createFromFormat('d-m-Y', $input['expiry_date']);
             CompanyDocument::updateOrCreate([
                 'company_id'   => $company->id,
             ],[
                 'doc_type' => $document->id,
-                'expiry_date' => $parsedDate->format('Y-m-d'),
+                'expiry_date' => $input['expiry_date'],
                 'doc_number' => $input['document_no']
             ]);
 

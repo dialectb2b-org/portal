@@ -32,7 +32,7 @@
                                                             width="100%">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="border-collapse:collapse;padding:85px 32px 16px 32px;"
+                                                                    <td style="border-collapse:collapse;padding:0;"
                                                                         align="left" valign="middle">
                                                                         <table
                                                                             style="border-spacing:0;border-collapse:collapse"
@@ -85,7 +85,7 @@
                                                                       
 
                                                                         <div style="width: 70%; float:left;">
-                                                                            Dialectb2b.com <br>
+                                                                            {{-- Dialectb2b.com --}} <br> 
                                                                        <!-- 999 Main street, Suite 101, Redwood City, CA,
                                                                         94063 USA -->
                                                                         <br>
@@ -123,10 +123,10 @@
                                                                         </a>
                                                                         </div>
 
-                                                                        <div style="width: 30%; float:right; text-align:right; padding-top: 45px;">
+                                                                        <div style="width: 30%; float:right; text-align:right; padding-top: 35px;">
                                                                             <a href="{{ url('/') }}"
                                                                             style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;margin-right:4px">
-                                                                            <img src="{{ asset('assets/images/mail/logo.svg') }}">
+                                                                            <img src="{{ asset('assets/images/mail/logo.png') }}" height="auto" width="175">
                                                                         </a>
                                                                         </div>
                                                                         <div style=" clear:both;"></div>
