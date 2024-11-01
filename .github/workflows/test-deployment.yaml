@@ -3,7 +3,7 @@ name: Push-to-Testing-Server
 on:
   push:
     branches:
-      - testing
+      - 02-testing
 
 
 jobs:
