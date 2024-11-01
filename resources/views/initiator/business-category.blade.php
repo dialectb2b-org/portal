@@ -381,7 +381,13 @@
         .catch((error) => {
             // Handle error response
             //console.log(error.response.data.message)
-            Swal.fire('Warning!', error.response.data.message, 'warning');
+            // Swal.fire('Warning!', error.response.data.message, 'warning');
+            Swal.fire('Warning!', error.response.data.message, 'warning').then((result) => {
+                if (result.isConfirmed) {
+                    // Open the modal
+                    $('#selected-categories').modal('show');
+                }
+            });
             selectedSubCategory();
         });
     });
