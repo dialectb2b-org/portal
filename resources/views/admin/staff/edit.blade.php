@@ -72,7 +72,34 @@
                 <input id="staff_id" type="hidden"  value="{{ $staff->id }}" />
             <div class="sub-plans-main edit-fields-main">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" id="upload" hidden/>
+                                    <label for="upload" class="browse-file">Drag a file or browse
+                                        a file to upload</label>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                    <div class="uplaod-formats">
+                                        Upload Photo
+                                        <span>Format: jpeg, jpg, png, gif, svg
+                                        Max-Size: 2MB </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-column align-items-left  mt-2">
+                                <span class="d-flex doc-preview align-items-center justify-content-between">
+                                   {{ $staff->profile_image }}
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ asset($staff->profile_image)  }}" class="doc-preview-view" target="blank"></a>
+                                        {{-- <a href="#" class="doc-preview-delete"></a> --}}
+                                     </div>
+                                </span>
+                            </div>
+
+                        </div>
+                        {{-- <div class="col-md-4 col-sm-12">
                             <div class="profile-container">
                                 <div id="profile-image">
                                     <img src="{{ asset($staff->profile_image)  }}" alt="Profile Image">
@@ -90,7 +117,7 @@
                             <div id="progressBarLogo" style="display: none;">
                                 <div id="progressLogo" style="width: 0%;"></div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 col-sm-12">
                             <div class="row">
                                 <div class="col-md-12">

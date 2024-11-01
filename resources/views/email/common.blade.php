@@ -85,10 +85,10 @@
                                                                       
 
                                                                         <div style="width: 70%; float:left;">
-                                                                            {{-- Dialectb2b.com --}} <br> 
+                                                                            {{-- Dialectb2b.com <br> --}} 
                                                                        <!-- 999 Main street, Suite 101, Redwood City, CA,
-                                                                        94063 USA -->
-                                                                        <br>
+                                                                        94063 USA
+                                                                        <br> -->
 
                                                                         <a href="{{ url('/') }}"
                                                                         style="color:#1654a1;font-size:13px;padding:12px 4px 12px 0px;height:24px;display:inline-block;text-transform:capitalize;outline:0;outline:none;border:0;border:none">
@@ -123,7 +123,7 @@
                                                                         </a>
                                                                         </div>
 
-                                                                        <div style="width: 30%; float:right; text-align:right; padding-top: 35px;">
+                                                                        <div style="width: 30%; float:right; text-align:right; padding-top: 19px;">
                                                                             <a href="{{ url('/') }}"
                                                                             style="font-size:0;border:0;outline:0;border:none;outline:none;text-decoration:none;margin-right:4px">
                                                                             <img src="{{ asset('assets/images/mail/logo.png') }}" height="auto" width="175">

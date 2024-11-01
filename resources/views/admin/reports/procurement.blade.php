@@ -29,140 +29,130 @@
                         </div>
                     </form>
                 </div>
-                <div class="reports-main ">
-                    <div class="table-responsive">
-                    <table class="table tbl-report mb-0">
+                <div class="">
+                    <div class="table-responsive" style="max-height: 15cm;">
+                    <table class="table report-main-tbl">
                         <thead>
                             <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Owner</th>
-                                <th scope="col">Enquiry Ref No.</th>
-                                <th scope="col">Enquiry Categorized</th>
+                                <th scope="col">Enquiry</th>
                                 <th scope="col">Type Of Enquiry</th>
                                 <th scope="col">List Of Participants</th>
-                                <th scope="col">Date And Time</th>
-                                <th scope="col">Screening Status</th>
                                 <th scope="col">Screening Ratio</th>
-                                <th scope="col">Shared To</th>
+                                <th scope="col">Screening Status</th>
                                 <th scope="col">Bid Rating</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Shared To</th>
                             </tr>    
       </thead>
                             <tbody>
                                 @foreach($enquiries as $key => $enquiry)
                                     <tr>
-                                        <td class="no-wrap-cell">{{ \Carbon\Carbon::parse($enquiry->created_at)->format('d-m-Y') }}</td>
-                                        <td class="no-wrap-cell">{{ \Carbon\Carbon::parse($enquiry->created_at)->format('h:i:s A') }}</td>
-                                        <td class="no-wrap-cell">{{ $enquiry->sender->email ?? '' }}</td>
-                                        <td class="no-wrap-cell">{{ $enquiry->reference_no }}</td>
-                                        <td class="no-wrap-cell">{{ $enquiry->sub_category->name ?? '' }}</td>
-                                        <td class="no-wrap-cell">{{ $enquiry->is_limited == 0 ? 'Normal' : 'Limited Enquiry' }}</td>
-                                        <td class="no-wrap-cell">  
-                                            <table>
-                                            @foreach($enquiry->all_replies as $reply)
-                                            <tr>
-                                               <td class="no-wrap-cell">{{ $reply->sender->company->name }}</td>
-                                            </tr>   
+                                        <td scop="row">
+                                            <h2>{{ $enquiry->reference_no }}</h2>
+                                            <h3>{{ $enquiry->sub_category->name ?? '' }}</h3>
+                                            {{ $enquiry->sender->email ?? '' }}<br>
+                                            {{ \Carbon\Carbon::parse($enquiry->created_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($enquiry->created_at)->format('h:i:s A') }}
+                                        </td>
+                                        <td scope="row"><h3>{{ $enquiry->is_limited == 0 ? 'Normal' : 'Limited Enquiry' }}</h3></td>
+                                        <td scope="row">  
+                                            @foreach($enquiry->all_replies as $reply)  
+                                            <span>
+                                                <h3>{{ $reply->sender->company->name }}</h3>
+                                                {{ \Carbon\Carbon::parse($reply->created_at)->format('d-m-Y')}} | {{ \Carbon\Carbon::parse($reply->created_at)->format('h:i:s A')}}
+                                               </span>
                                             @endforeach
-                                            </table>
-                                        </td>
-                                        <td class="no-wrap-cell">
-                                            <table>
-                                                @foreach($enquiry->all_replies as $reply)
-                                                <tr>
-                                                    <td class="no-wrap-cell">{{ \Carbon\Carbon::parse($reply->created_at)->format('d-m-Y h:i:s A')}}</td>
-                                                </tr>   
-                                                @endforeach
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table>
-                                                @foreach($enquiry->all_replies as $reply)
-                                                <tr>
-                                                <td class="no-wrap-cell">
-                                                    @if($reply->status == 0 && $reply->is_read == 0)
-                                                        @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                                {{ 'Recommanded' }}
-                                                        @else
-                                                            {{ 'Unread' }}
-                                                        @endif
-                                                    @elseif($reply->status == 0 && $reply->is_read == 1)
-                                                        @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                            {{ 'Recommanded' }}
-                                                        @else
-                                                            {{ 'TBD' }} 
-                                                        @endif
-                                                    @elseif($reply->status == 1 )         
-                                                        @if($reply->is_selected == 1 && $reply->shared_to !== null)
-                                                            {{ 'Selected' }}
-                                                        @else
-                                                            {{  'Shortlisted' }}
-                                                        @endif
-                                                    @elseif($reply->status == 2)
-                                                        @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                            {{  'Recommanded' }}
-                                                        @else
-                                                            {{ 'On Hold' }}
-                                                        @endif
-                                                    @elseif($reply->status == 3)
-                                                        {{  'Proceed' }}
-                                                @endif
-                                                </td>
-                                                </tr>   
-                                                @endforeach
-                                            </table>
                                         </td>
                                         <td class="no-wrap-cell">{{ count($enquiry->action_replies) }} : {{ count($enquiry->all_replies) }}</td>
-                                        <td class="no-wrap-cell">
-                                            @if($enquiry->shared_to)
-                                            Shared to {{ $enquiry->shared->name ?? '' }} at {{ $enquiry->shared->email ?? '' }} on {{ $enquiry->shared_at }}
-                                            @endif
-                                        </td>
-                                        <td class="no-wrap-cell">
-                                        <table>
-                                        @foreach($enquiry->all_replies as $reply)
-                                        <tr>
-                                            <td class="no-wrap-cell">
+                                        <td>
+                                            @foreach($enquiry->all_replies as $reply)
+                                            <span>
+                                                <h3>
                                                 @if($reply->status == 0 && $reply->is_read == 0)
                                                     @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                            {{ 'Recommanded' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                            {{ 'Recommanded' }}
+                                                    @else
+                                                        {{ 'Unread' }}
                                                     @endif
                                                 @elseif($reply->status == 0 && $reply->is_read == 1)
                                                     @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                        {{ 'Recommanded' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                        {{ 'Recommanded' }}
+                                                    @else
+                                                        {{ 'TBD' }} 
                                                     @endif
                                                 @elseif($reply->status == 1 )         
                                                     @if($reply->is_selected == 1 && $reply->shared_to !== null)
-                                                        {{ 'Selected' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                        {{ 'Selected' }}
                                                     @else
-                                                        {{  'Shortlisted' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                        {{  'Shortlisted' }}
                                                     @endif
                                                 @elseif($reply->status == 2)
                                                     @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
-                                                        {{  'Recommanded' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                        {{  'Recommanded' }}
                                                     @else
-                                                        {{ 'On Hold' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
+                                                        {{ 'On Hold' }}
                                                     @endif
                                                 @elseif($reply->status == 3)
-                                                    {{  'Proceed' }} on {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y h:i:s A') }}
-                                            @endif
-                                            </tr>
+                                                    {{  'Proceed' }}
+                                                @endif 
+                                                </h3>
+                                                -
+                                            </span>
+                                            @endforeach
+                                        </td>
+                                        <td class="no-wrap-cell">
+                                        @foreach($enquiry->all_replies as $reply)
+                                            <span>
+                                                @if($reply->status == 0 && $reply->is_read == 0)
+                                                    @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
+                                                    <h3>{{ 'Recommanded' }} on</h3> 
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @endif
+                                                @elseif($reply->status == 0 && $reply->is_read == 1)
+                                                    @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
+                                                    <h3>{{ 'Recommanded' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @endif
+                                                @elseif($reply->status == 1 )         
+                                                    @if($reply->is_selected == 1 && $reply->shared_to !== null)
+                                                    <h3>{{ 'Selected' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @else
+                                                    <h3>{{  'Shortlisted' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @endif
+                                                @elseif($reply->status == 2)
+                                                    @if($reply->is_recommanded == 1 && $reply->shared_to !== null)
+                                                    <h3>{{  'Recommanded' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @else
+                                                    <h3>{{ 'On Hold' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                    @endif
+                                                @elseif($reply->status == 3)
+                                                    <h3>{{  'Proceed' }} on</h3>
+                                                    {{ \Carbon\Carbon::parse($reply->updated_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($reply->updated_at)->format('h:i:s A') }}
+                                                @else
+                                                    <h3>-</h3>-
+                                                @endif
+                                            </span>
                                         @endforeach  
-                                        </table>  
                                         </td>
                                         <td>
-                                            <table>
-                                            @foreach($enquiry->all_replies as $reply)
-                                                <tr>
-                                                    <td class="no-wrap-cell">
-                                                        @if($reply->status == 3)
-                                                            {{  'Proceed' }}
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach  
-                                        </table>      
+                                        @foreach($enquiry->all_replies as $reply)
+                                            <span>
+                                                @if($reply->status == 3)
+                                                    <h3>{{  'Proceed' }}</h3>
+                                                @endif
+                                            </span>
+                                        @endforeach
+                                        </td>
+                                        <td class="no-wrap-cell">
+                                            <span>
+                                                @if($enquiry->shared_to)
+                                                <h3> {{ $enquiry->shared->name ?? '' }} at {{ $enquiry->shared->email ?? '' }} </h3>
+                                                {{ \Carbon\Carbon::parse($enquiry->shared_at)->format('d-m-Y') }} | {{ \Carbon\Carbon::parse($enquiry->shared_at)->format('h:i:s A') }}
+                                                @endif
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach                  

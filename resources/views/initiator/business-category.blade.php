@@ -262,13 +262,17 @@
                                             + val.subcategory.name +
                                             `<a href="#" data-id="`+val.id+`" class="categ-delete"></a>
                                     </li>`;
-
                         $('#selected-subcategory').append(li);
                         $('#sel'+val.subcategory.id).addClass('active');
                     });
+
+                    if(response.data.data.length < 4){
+                        var add_data = `<li class="text-center" data-dismiss="modal"><h3>+ Add Data</h3></li>`;
+                    }
+                    $('#selected-subcategory').append(add_data);
                 }
                 else{
-                    var li = `<li class="text-center"><h3>No Data Found!</h3></li>`;
+                    var li = `<li class="text-center"><h3>No Data Found!</h3></li><li class="text-center" data-dismiss="modal"><h3>+ Add Data</h3></li>`;
                     $('#selected-subcategory').append(li);
                 }
             }

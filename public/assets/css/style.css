@@ -4961,3 +4961,63 @@ ul.drop-todo ul li:first-child{
   top: -7px;
   border: 3px solid #fff;
 }
+
+/* New Styles 27-06-2024*/
+
+.report-company-name{
+  font-weight: 600;
+  padding-left: 17px;
+  border-left: 1px solid #707070;
+  margin-left: 20px;
+  padding-top: 5px;
+}
+.report-main-tbl{
+  width: 100%;
+  white-space: nowrap;
+}
+.report-main-tbl td{
+  color: #071D49;
+  font-weight: 500;
+  line-height: 20px;
+}
+.report-main-tbl th{
+  color: #5F6F87;
+  background: #DFE0E6;
+  font-size: 15px;
+  padding: 15px;
+}
+
+.report-main-tbl td{
+  padding: 15px;
+}
+.report-main-tbl h2{
+  font-size: 20px;
+  padding: 0px 0px 5px 0;
+}
+
+.report-main-tbl h3{
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.report-main-tbl td span{
+  margin-bottom: 10px;
+  display: block;
+}
+.report-main-tbl td{
+  font-size: 15px;
+}
+.reports-headiing{
+  padding: 6px 0 20px 0;
+}
+.reports-headiing h1{
+  padding: 0px 15px 0 0;
+}
+.table-responsive{
+  padding: 0;
+}
+.registered-teams{
+  background: #F1F1F1;
+  margin: 15px 0;
+  padding: 13px 15px;
+}

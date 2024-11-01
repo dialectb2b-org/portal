@@ -1,27 +1,7 @@
-@php
-   $role = auth()->user()->role;
-   if($role == 1){
-       $extends = 'admin.layouts.app';
-       $header = 'admin.layouts.header';
-   }
-   else if($role == 2){
-       $extends = 'procurement.layouts.app';
-       $header = 'procurement.layouts.header';
-   }
-   else if($role == 3){
-       $extends = 'sales.layouts.app';
-       $header = 'sales.layouts.header';
-   }
-   else if($role == 4){
-       $extends = 'member.layouts.app';
-       $header = 'member.layouts.header';
-   }
-@endphp
-
-@extends($extends)
+@extends('admin.layouts.app')
 @section('content')
     <!-- Header Starts -->
-        @include($header)
+    @include('admin.layouts.header')
     <!-- Header Ends -->
 
 
@@ -34,7 +14,7 @@
                         <div class="col-md-3 pr-0">
                             <div class="profile-stting-sec1">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('profile.edit') }}" class="team-edit"><img src="{{ asset('assets/images/team-edit-ico.svg') }}"></a>
+                                    <a href="{{ route('admin.editProfile') }}" class="team-edit"><img src="{{ asset('assets/images/team-edit-ico.svg') }}"></a>
                                 </div>
                                 <div class="d-flex">
                                     <div class="tumb-img d-flex align-items-center justify-content-center"><img src="{{ $user->profile_image != '' ? asset($user->profile_image) : ''  }}">
@@ -43,7 +23,7 @@
                                         <h2>{{ $user->name }}</h2>
                                         <span>{{ $user->designation }}</span>
                                         <div class="form-group">
-                                            <a  class="btn btn-third"  href="{{ route('profile.changePassword') }}">Reset Password</a>
+                                            <input type="submit" value="Reset Password" class="btn btn-third"  onclick="window.location.href = '#'">
                                         </div>
                                     </div>
                                 </div>
@@ -68,9 +48,8 @@
                             </div>
 
                             <div class="profile-stting-sec2">
-                                <div class="d-flex justify-content-between mb-4">
+                                <div class="d-flex mb-4">
                                     <h1>Company Info</h1>
-                                    <a href="{{ route('companyProfile.index') }}" class="team-edit"><img src="{{ asset('assets/images/team-edit-ico.svg') }}"></a>
                                 </div>
                                 <div class="d-flex">
                                     <div class=" d-flex align-items-center justify-content-center"><img src="{{ asset($company->logo) }}" height="50px">
@@ -82,17 +61,33 @@
                                 </div>
                                 <div class="sale-prof-detail">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <label>Address</label>
-                                            {{ $company->address }} 
-                                            {{ $company->zone != '' ? ', '.$company->zone : ''  }}
-                                            {{ $company->street != '' ? ', '.$company->street : ''  }}
-                                            {{ $company->building != '' ? ', '.$company->building : ''  }}
-                                            {{ $company->unit != '' ? ', '.$company->unit : ''  }}
+                                            {{ $company->address }}
                                         </div>
-                        
+                                        <div class="col-md-3">
+                                            <label>Zone</label>
+                                            {{ $company->zone }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Street</label>
+                                            {{ $company->street }}
+                                        </div>
                                     </div>
                                     
+                                </div>
+
+                                <div class="sale-prof-detail">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Building</label>
+                                            {{ $company->building }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Unit</label>
+                                            {{ $company->unit }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,12 +95,8 @@
 
                         <div class="col-md-3  pl-0 pr-0">
                             <div class="profile-stting-sec1">
-                                <div class="d-flex justify-content-between mb-2">
-                                    @php $expiry =  $company->document->expiry_date ?? ''; @endphp
+                                <div class="d-flex mb-2">
                                     <h1>Documents</h1>
-                                    @if($expiry < today())
-                                    <a href="#" class="team-edit edit-document"><img src="{{ asset('assets/images/team-edit-ico.svg') }}"></a>
-                                    @endif
                                 </div>
                                 <div class="sale-prof-detail">
                                     <div class="row">
@@ -127,40 +118,34 @@
                                         </div>
                                         <div class="col-md-5">
                                             <label>Status</label>
+                                            @php $expiry =  $company->document->expiry_date ?? ''; @endphp
                                             @if($expiry > today())
                                                 Active
                                             @else
                                                 Expired
                                             @endif
                                         </div>
-                                        <div class="col-md-12">
-                                            <a href="#" class="mt-4 d-flex open_doc">View Document</a>
-                                        </div>
                                     </div>
+                                    <a href="#" class="mt-4 d-flex open_doc">View Document</a>
                                 </div>
                             </div>
-                            <!--<div class="profile-stting-sec3">-->
-                                <!--<div class="d-flex mb-2">-->
-                                <!--    <h1>Declaration</h1>-->
-                                <!--</div>-->
-                                <!--<div class="sale-prof-detail">-->
-                                <!--    <a href="#" class="mt-4 d-flex open_declaration">View Declaration</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <div class="profile-stting-sec3">
+                                <div class="d-flex mb-2">
+                                    <h1>Declaration</h1>
+                                </div>
+                                <div class="sale-prof-detail">
+                                    <a href="#" class="mt-4 d-flex open_declaration">View Declaration</a>
+                                </div>
+                            </div>
                             <div class="profile-stting-sec3">
                                 <div class="d-flex mb-2">
                                     <h1>Account Verification</h1>
                                 </div>
                                 <div class="sale-prof-detail">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Status</label>
+                                        <div class="col-md-12">
+                                            <label>Status:</label>
                                             {{ $company->is_verified == 1 ? 'Verified' : 'Non-Verified' }}
-                                        </div>
-                                        <div class="col-md-6">
-                                            @if($company->is_verified == 1)
-                                            <a href="{{ route('subscription') }}" class="mt-4 d-flex">View Details</a>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -170,16 +155,12 @@
                                     <h1>Subscription</h1>
                                     <div class="form-group">
                                         @if($company->current_plan == 1)
-                                            @if(auth()->user()->role == 1)
-                                            <input type="submit" value="Upgrade" class="btn btn-third" onclick="window.location.href = '{{ route('subscription.plans') }}'" >
-                                            @endif
+                                        <input type="submit" value="Upgrade" class="btn btn-third" onclick="window.location.href = '{{ route('subscription.plans') }}'" >
                                         @else
-                                            @if(auth()->user()->role == 1)
-                                                @if($company->current_plan_status == 1)
-                                                <a  class="btn btn-third cancel_sub" >Unsubscribe</a>
-                                                @else
-                                                <p class="text-danger">Plan Unsubscribed</p>
-                                                @endif
+                                            @if($company->current_plan_status == 1)
+                                            <a  class="btn btn-third cancel_sub" >Unsubscribe</a>
+                                            @else
+                                            <p class="text-danger">Plan Unsubscribed</p>
                                             @endif
                                         @endif
                                     </div>
@@ -187,7 +168,7 @@
                                 <div class="sale-prof-detail">
                                     <div class="row">
                                         <div class="col-md-7">
-                                            <label>Current Package</label>
+                                            <label>Current Package:</label>
                                             {{ $package->name ?? '' }}
                                         </div>
                                         <div class="col-md-5">
@@ -213,10 +194,8 @@
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <h1>Business Categories</h1>
                                     <div class="form-group">
-                                        @if(auth()->user()->role == 3)
-                                        <a href="{{ route('category-purchase.unsubsubscribeCategory') }}"  class="btn btn-third" >Unsubscribe</a>
-                                        <a href="{{ route('category-purchase.index') }}" class="btn btn-secondary mx-2">Purchase</a>
-                                        @endif
+                                        <input type="submit" value="Unsubscribe" class="btn btn-third"  onclick="window.location.href = ''">
+                                        <input type="submit" value="Purchase" class="btn btn-secondary mx-2" onclick="window.location.href = 'purchsase-business-category.html';">
                                     </div>
 
                                 </div>
@@ -226,10 +205,10 @@
                                 <div class="sale-prof-detail">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <h2 class="mb-3">Privilege Category</h2>
+                                            <h2 class="mb-3">Free</h2>
                                             <ul class="right-categories-list">
                                                 @foreach($company->activities as $key => $activity)
-                                                <li><a href="#">{{ $activity->name }}</a></li>
+                                                <li><a href="#">AC Equipment &amp; AC System Repairs</a></li>
                                                 @endforeach
                                                 
                                            </ul>
@@ -242,36 +221,27 @@
                                         <div class="col-md-10">
                                             <div class="d-flex justify-content-between">
                                                 <h2 class="mb-2">Subscribed</h2>
-                                                <a href="{{ route('subscription') }}" class="mt-4 d-flex">View Details</a>
+                                                <a href="#">Billing History</a>
                                             </div>
-                                            <ul class="right-categories-list-subscribed " style="overflow-y: scroll;max-height: 350px;">
-                                                @foreach($company->paid_activities as $key => $paid_activity)
-                                                @php
-                                                    $expiryDate = \Carbon\Carbon::parse($paid_activity->pivot->expiry_date);
-                                                    $currentDate = \Carbon\Carbon::now();
-                                                    $isOneWeekAway = $expiryDate->diffInDays($currentDate) == 7 && $expiryDate->isAfter($currentDate);
-                                                    $isNotExpired = $expiryDate->isFuture();
-                                                    if($isOneWeekAway && $isNotExpired){
-                                                        $status = "valid-till";
-                                                    }
-                                                    elseif(!$isNotExpired){
-                                                        $status = "expired-on";
-                                                    }
-                                                    else{
-                                                        $status = null;
-                                                    }
-                                                @endphp
-                                                <li class="{{ $status }} d-flex justify-content-between align-items-center">
-                                                    <div>{{ $paid_activity->name }}<br>
-                                                    @if( $paid_activity->pivot->status == 1)
-                                                    <span>Valid till: {{ $paid_activity->pivot->expiry_date ?? '' }}</span>
-                                                    @else
-                                                     <span>Unsubscribed</span>
-                                                    @endif
+                                            <ul class="right-categories-list-subscribed ">
+                                                <li class="valid-till d-flex justify-content-between align-items-center">
+                                                    <div>District Cooling & Heating System<br>
+                                                    <span>Valid till: 26 Oct 2023</span>
                                                     </div>
-                                                    <!--<a href="#">Renew Now</a>-->
+                                                    <a href="#">Renew Now</a>
                                                 </li>
-                                                @endforeach
+                                                <li class="expired-on d-flex justify-content-between align-items-center">
+                                                    <div>Duct Manufacturers, Duct Cleaners & Accessories<br>
+                                                    <span>Valid till: 26 Oct 2024</span>
+                                                    </div>
+                                                    <a href="#">Renew Now</a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <div>HVAC Contractors<br>
+                                                        <span>Valid till: 26 Jan 2024</span>
+                                                        </div>
+                                                </li>
                                            </ul>
                                         </div>
                                        
@@ -295,67 +265,29 @@
 
     <!-- View Document Model -->
     <div class="modal fade bd-example-modal-lg" id="viewDocumentModel" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title" id="exampleModalLongTitle">Document</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="width:100%;height:400px;overflow-y:scroll">
-                    <a href="{{ asset($company->document->doc_file ?? '') }}" target="_blank">
-                        <embed src="{{ asset($company->document->doc_file ?? '') }}" class="d-flex align-items-center justify-content-center" >
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Edit Document Model -->
-    <div class="modal fade bd-example-modal-lg" id="editDocumentModel" tabindex="-1" role="dialog" aria-labelledby="editDocumentModel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title" id="exampleModalLongTitle">Update Document</h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
-                    <form action="{{ route('profile.updateDocument') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12 mx-auto mb-4">
-                                <div class="form-group position-relative">
-                                    <label>Upload Document<span class="mandatory">*</span></label>
-                                    <input id="file" name="file" type="file" value="" class="form-control website" required>
-                                    <small class="text-danger">@error('file'){{ $message }}@enderror</small>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mx-auto mb-4">
-                                <div class="form-group position-relative">
-                                    <label>Expiry Date<span class="mandatory">*</span></label>
-                                    <input id="expiry_date" name="expiry_date" type="date" value="" placeholder="Expiry Date" class="form-control website" required>
-                                    <small class="text-danger">@error('expiry_date'){{ $message }}@enderror</small>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <input type="submit" value="Save" class="btn btn-secondary">
-                        </div> 
-                    </form>
+                    <embed src="{{ asset($company->document->doc_file ?? '') }}" class="license-preview d-flex align-items-center justify-content-center">
                 </div>
             </div>
         </div>
     </div>
 
         <!-- View Declaration Model -->
-        <div class="modal fade" id="viewDeclarationModel" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal fade bd-example-modal-lg" id="viewDeclarationModel" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title" id="exampleModalLongTitle">Declaration</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <embed src="{{ asset($company->decleration ?? '') }}" class="d-flex align-items-center justify-content-center" style="width:100%;height:700px;">
+                        <embed src="{{ asset($company->decleration ?? '') }}" class="license-preview d-flex align-items-center justify-content-center">
                     </div>
                 </div>
             </div>
@@ -409,10 +341,6 @@
 <script>
     $('body').on('click','.open_doc',function(){
         $('#viewDocumentModel').modal('show');
-    });
-    
-    $('body').on('click','.edit-document',function(){
-        $('#editDocumentModel').modal('show');
     });
 
     $('body').on('click','.close',function(){

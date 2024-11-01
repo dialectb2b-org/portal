@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 @endif
-                <div class="col-md-9 mt-3">
+                <div class="col-md-9">
                     <div class="row p-4 dash-blocks">
                         <div class="col-md-3">
                             <div class="d-flex align-items-center justify-content-between">
