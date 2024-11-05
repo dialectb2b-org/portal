@@ -93,15 +93,15 @@
                                     <div class="counts-white">
                                         <div class="row">
                                             <div class="col-md-4 counts-main">
-                                                <span id="procurement-open" class="green-txt">{{ $openPro }}</span>
+                                                <span id="procurement-open" class="green-txt">{{ str_pad($openPro, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No. of RFQ Sent</label>
                                             </div>
                                             <div class="col-md-4 counts-main">
-                                                <span id="procurement-closed" class="blue-txt">{{ $closedPro }}</span>
+                                                <span id="procurement-closed" class="blue-txt">{{ str_pad($closedPro, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No of RFQ in Progress</label>
                                             </div>
                                             <div class="col-md-4 counts-main">
-                                                <span id="procurement-expired" class="orange-txt">{{ $expiredPro }}</span>
+                                                <span id="procurement-expired" class="orange-txt">{{ str_pad($expiredPro, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No of RFQ Completed</label>
                                             </div>
                                         </div>
@@ -184,15 +184,15 @@
                                     <div class="counts-white">
                                         <div class="row">
                                             <div class="col-md-4 counts-main">
-                                                <span id="sales-open" class="green-txt">{{ $openSale }}</span>
+                                                <span id="sales-open" class="green-txt">{{ str_pad($openSale, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No. of Enquiries Received</label>
                                             </div>
                                             <div class="col-md-4 counts-main">
-                                                <span id="sales-closed" class="blue-txt">{{ $closedSale }}</span>
+                                                <span id="sales-closed" class="blue-txt">{{ str_pad($closedSale, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No. of Enquiries Responded</label>
                                             </div>
                                             <div class="col-md-4 counts-main">
-                                                <span id="sales-expired" class="orange-txt">{{ $expiredSale }}</span>
+                                                <span id="sales-expired" class="orange-txt">{{ str_pad($expiredSale, 2, '0', STR_PAD_LEFT) }}</span>
                                                 <label>No. of Enquiries Expired</label>
                                             </div>
                                         </div>

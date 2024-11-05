@@ -91,7 +91,41 @@
                 <input id="staff_id" type="hidden"  value="{{ $user->id }}" />
                 <div class="sub-plans-main edit-fields-main">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" id="upload" hidden accept="image/*" onchange="updateProfileImage(this)" />
+                                    <label for="upload" class="browse-file" id="drop-area">Drag a file or browse
+                                        a file to upload</label>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                    <div class="uplaod-formats">
+                                        Upload Photo
+                                        <span>Format: jpeg, jpg, png, gif, svg
+                                            Max-Size: 2MB </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column align-items-left mt-2">
+                                <span class="d-flex doc-preview align-items-center justify-content-between">
+                                    <img id="profile-image-preview" src="{{ asset($user->profile_image) }}"
+                                        alt="Profile Image" style="max-width: 100px; max-height: 100px;" />
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ asset($user->profile_image) }}" class="doc-preview-view"
+                                            target="_blank"></a>
+                                        {{-- Uncomment to enable delete functionality --}}
+                                        {{-- <a href="#" class="doc-preview-delete">Delete</a> --}}
+                                    </div>
+                                </span>
+                            </div>
+
+                            <div id="progressBarLogo" style="display: none;">
+                                <div id="progressLogo" style="width: 0%;"></div>
+                            </div>
+
+                        </div>
+                        {{-- <div class="col-md-4 col-sm-12">
                             <div class="profile-container">
                                 <div id="profile-image">
                                     <img src="{{ asset($user->profile_image)  }}" alt="Profile Image">
@@ -109,7 +143,7 @@
                             <div id="progressBarLogo" style="display: none;">
                                 <div id="progressLogo" style="width: 0%;"></div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 col-sm-12">
                             <div class="row">
                                 <div class="col-md-12">
@@ -185,6 +219,99 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
+    const dropArea = document.getElementById('drop-area');
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+
+    // Highlight drop area when item is dragged over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    // Remove highlighting when item is no longer dragging over the drop area
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    // Handle dropped files
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function highlight() {
+        dropArea.classList.add('highlight');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('highlight');
+    }
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        // Call the updateProfileImage function with the dropped files
+        if (files.length > 0) {
+            updateProfileImage({
+                files
+            });
+        }
+    }
+
+    // Function to update profile image on file selection
+    function updateProfileImage(input) {
+        const file = input.files[0];
+        // console.log(file);
+        if (file) {
+            const formData = new FormData();
+            formData.append('logo_file', file);
+
+            const apiUrl = '/profile/update-profile-pic';
+
+            axios.post(apiUrl, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: function (progressEvent) {
+                    // Handle upload progress if needed
+                    const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    console.log('Upload Progress: ' + percent + '%');
+                }
+            })
+            .then(response => {
+                    // Update the profile image on the front end
+                    $('#profile-image').find('img').attr('src', response.data.filepath);
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        title: 'Profile Image Updated!',
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    }).then(() => {
+                        // Reload the page after the alert is closed
+                        window.location.reload();
+                    });
+                })
+                .catch(error => {
+                    // Handle error response
+                    console.error('Error uploading image:', error);
+                });
+        }
+    }
+
     $(document).ready(function() {
         
         // Logo
@@ -196,37 +323,6 @@
         // Function to open file input when clicking on the profile image
         function openFileInput() {
             $('.edit-input').click();
-        }
-
-        // Function to update profile image on file selection
-        function updateProfileImage(input) {
-            const file = input.files[0];
-
-            if (file) {
-                const formData = new FormData();
-                formData.append('logo_file', file);
-
-                const apiUrl = '/profile/update-profile-pic';
-
-                axios.post(apiUrl, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    onUploadProgress: function (progressEvent) {
-                        // Handle upload progress if needed
-                        const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        console.log('Upload Progress: ' + percent + '%');
-                    }
-                })
-                    .then(response => {
-                        // Update the profile image on the front end
-                        $('#profile-image').find('img').attr('src', response.data.filepath);
-                    })
-                    .catch(error => {
-                        // Handle error response
-                        console.error('Error uploading image:', error);
-                    });
-            }
         }
 
         // Attach event listeners

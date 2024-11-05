@@ -5,7 +5,6 @@
     <!-- Header Ends -->
     <!-- Main Content -->
     <style>
- 
         .profile-container {
             text-align: center;
             position: relative;
@@ -60,42 +59,54 @@
         .edit-input {
             display: none;
         }
+
+        #drop-area.highlight {
+            border-color: #333;
+            background-color: #f0f0f0;
+        }
     </style>
     <section class="container-fluid pleft-77">
         <div class="px-4 py-3">
             <div class="sub-plans-head">
                 <h1><a href="{{ route('admin.dashboard') }}" class="back-btn"></a>Edit</h1>
             </div>
-            <form action="{{ route('admin.staff.update',$staff->id) }}" method="post">
+            <form action="{{ route('admin.staff.update', $staff->id) }}" method="post">
                 @csrf
                 @method('PUT')
-                <input id="staff_id" type="hidden"  value="{{ $staff->id }}" />
-            <div class="sub-plans-main edit-fields-main">
+                <input id="staff_id" type="hidden" value="{{ $staff->id }}" />
+                <div class="sub-plans-main edit-fields-main">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="file" id="upload" hidden/>
-                                    <label for="upload" class="browse-file">Drag a file or browse
+                                    <input type="file" id="upload" hidden accept="image/*" onchange="updateProfileImage(this)" />
+                                    <label for="upload" class="browse-file" id="drop-area">Drag a file or browse
                                         a file to upload</label>
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center justify-content-center">
                                     <div class="uplaod-formats">
                                         Upload Photo
                                         <span>Format: jpeg, jpg, png, gif, svg
-                                        Max-Size: 2MB </span>
+                                            Max-Size: 2MB </span>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="d-flex flex-column align-items-left  mt-2">
+
+                            <div class="d-flex flex-column align-items-left mt-2">
                                 <span class="d-flex doc-preview align-items-center justify-content-between">
-                                   {{ $staff->profile_image }}
+                                    <img id="profile-image-preview" src="{{ asset($staff->profile_image) }}"
+                                        alt="Profile Image" style="max-width: 100px; max-height: 100px;" />
                                     <div class="d-flex align-items-center">
-                                        <a href="{{ asset($staff->profile_image)  }}" class="doc-preview-view" target="blank"></a>
-                                        {{-- <a href="#" class="doc-preview-delete"></a> --}}
-                                     </div>
+                                        <a href="{{ asset($staff->profile_image) }}" class="doc-preview-view"
+                                            target="_blank"></a>
+                                        {{-- Uncomment to enable delete functionality --}}
+                                        {{-- <a href="#" class="doc-preview-delete">Delete</a> --}}
+                                    </div>
                                 </span>
+                            </div>
+
+                            <div id="progressBarLogo" style="display: none;">
+                                <div id="progressLogo" style="width: 0%;"></div>
                             </div>
 
                         </div>
@@ -123,23 +134,42 @@
                                 <div class="col-md-12">
                                     <div class="input-group position-relative">
                                         <label>Name<span class="mandatory">*</span></label>
-                                        <input id="name" name="name" type="text" value="{{ old('name') ?? $staff->name ?? '' }}" placeholder="Name" class="form-control website">
-                                        <small class="text-danger">@error('name'){{ $message }}@enderror</small>
+                                        <input id="name" name="name" type="text"
+                                            value="{{ old('name') ?? ($staff->name ?? '') }}" placeholder="Name"
+                                            class="form-control website">
+                                        <small class="text-danger">
+                                            @error('name')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="col-md-12">
                                     <div class="input-group position-relative">
                                         <label>Email<span class="mandatory">*</span></label>
-                                        <input id="email" name="email" type="text" value="{{ old('email') ?? $staff->email ?? '' }}" placeholder="Email" class="form-control website">
-                                        <small class="text-danger">@error('email'){{ $message }}@enderror</small>
+                                        <input id="email" name="email" type="text"
+                                            value="{{ old('email') ?? ($staff->email ?? '') }}" placeholder="Email"
+                                            class="form-control website">
+                                        <small class="text-danger">
+                                            @error('email')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
-                                </div>  
-                                <div class="col-md-12">    
+                                </div>
+                                <div class="col-md-12">
                                     <label>Landline</label>
                                     <div class="d-flex">
-                                        <input type="text" value="{{ $country->phonecode }}"  class="form-control mobile-code" readonly>
-                                        <input id="landline" name="landline" type="text" value="{{ old('landline') ?? $staff->landline ?? '' }}" placeholder="Landline" class="form-control mobile-number">
-                                        <small class="text-danger">@error('landline'){{ $message }}@enderror</small>
+                                        <input type="text" value="{{ $country->phonecode }}"
+                                            class="form-control mobile-code" readonly>
+                                        <input id="landline" name="landline" type="text"
+                                            value="{{ old('landline') ?? ($staff->landline ?? '') }}" placeholder="Landline"
+                                            class="form-control mobile-number">
+                                        <small class="text-danger">
+                                            @error('landline')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -149,30 +179,49 @@
                                 <div class="col-md-12">
                                     <div class="input-group position-relative">
                                         <label>Designation <span class="mandatory">*</span></label>
-                                        <input id="designation" name="designation" type="text" value="{{ old('designation') ?? $staff->designation ?? '' }}"  placeholder="Designation" class="form-control website">
-                                        <small class="text-danger">@error('designation'){{ $message }}@enderror</small>
+                                        <input id="designation" name="designation" type="text"
+                                            value="{{ old('designation') ?? ($staff->designation ?? '') }}"
+                                            placeholder="Designation" class="form-control website">
+                                        <small class="text-danger">
+                                            @error('designation')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Mobile</label>
                                     <div class="d-flex">
-                                        <input id="country_code" name="country_code"  type="text" value="{{ $country->phonecode }}" class="form-control mobile-code" readonly>
-                                        <input id="mobile" name="mobile" type="text" value="{{ old('mobile') ?? $staff->mobile ?? '' }}" placeholder="Mobile No." class="form-control mobile-number">
-                                        <small class="text-danger">@error('mobile'){{ $message }}@enderror</small>
+                                        <input id="country_code" name="country_code" type="text"
+                                            value="{{ $country->phonecode }}" class="form-control mobile-code" readonly>
+                                        <input id="mobile" name="mobile" type="text"
+                                            value="{{ old('mobile') ?? ($staff->mobile ?? '') }}" placeholder="Mobile No."
+                                            class="form-control mobile-number">
+                                        <small class="text-danger">
+                                            @error('mobile')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group position-relative">
                                         <label>Extension</label>
-                                        <input id="extension" name="extension" type="text" value="{{ old('extension') ?? $staff->extension ?? '' }}" placeholder="Extension" class="form-control website">
-                                        <small class="text-danger">@error('extension'){{ $message }}@enderror</small>
+                                        <input id="extension" name="extension" type="text"
+                                            value="{{ old('extension') ?? ($staff->extension ?? '') }}"
+                                            placeholder="Extension" class="form-control website">
+                                        <small class="text-danger">
+                                            @error('extension')
+                                                {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between justify-content-center mt-5">
                             <div class="already-signup">
-                                
+
                             </div>
                             <div class="form-group proceed-btn">
                                 <input type="submit" value="Save" class="btn btn-secondary">
@@ -181,85 +230,138 @@
                     </div>
                 </div>
             </form>
-        </div> 
+        </div>
     </section>
 
-              
-                         
+
+
     <!-- End Main Content -->
 
 
 
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script>
-    $(document).ready(function() {
-        
-        // Logo
-        var progressBarLogo = document.getElementById('progressBarLogo');
-        var progressLogo = document.getElementById('progressLogo');
-        var logoPreview = document.getElementById('logo-preview');
-        var logoUploadArea = document.getElementById('upload-area');
+    @push('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+            integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const dropArea = document.getElementById('drop-area');
 
-        // Function to open file input when clicking on the profile image
-        function openFileInput() {
-            $('.edit-input').click();
-        }
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
 
-        // Function to update profile image on file selection
-        function updateProfileImage(input) {
-            const file = input.files[0];
-            var staff_id = $('#staff_id').val();
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
 
-            if (file) {
-                const formData = new FormData();
-                formData.append('logo_file', file);
-                formData.append('staff_id', staff_id);
+            // Remove highlighting when item is no longer dragging over the drop area
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
 
-                const apiUrl = '/admin/staff/update-profile-pic';
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
 
-                axios.post(apiUrl, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    onUploadProgress: function (progressEvent) {
-                        // Handle upload progress if needed
-                        var percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        progressLogo.style.width = percent + '%';
-                    }
-                })
-                    .then(response => {
-                        // Update the profile image on the front end
-                        $('#profile-image').find('img').attr('src', response.data.filepath);
-                        Swal.fire({
-                            toast: true,
-                            icon: 'success',
-                            title: 'Profile Image Updated!',
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function highlight() {
+                dropArea.classList.add('highlight');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+            }
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                // Call the updateProfileImage function with the dropped files
+                if (files.length > 0) {
+                    updateProfileImage({
+                        files
+                    });
+                }
+            }
+
+            function updateProfileImage(input) {
+                // alert();
+                const file = input.files[0];
+                console.log(file);
+                var staff_id = $('#staff_id').val();
+
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('logo_file', file);
+                    formData.append('staff_id', staff_id);
+
+                    const apiUrl = '/admin/staff/update-profile-pic';
+
+                    axios.post(apiUrl, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                            onUploadProgress: function(progressEvent) {
+                                // Handle upload progress if needed
+                                var percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                                progressLogo.style.width = percent + '%';
                             }
                         })
-                    })
-                    .catch(error => {
-                        // Handle error response
-                        console.error('Error uploading image:', error);
-                    });
+                        .then(response => {
+                            // Update the profile image on the front end
+                            $('#profile-image').find('img').attr('src', response.data.filepath);
+                            Swal.fire({
+                                toast: true,
+                                icon: 'success',
+                                title: 'Profile Image Updated!',
+                                position: 'top-right',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            }).then(() => {
+                                // Reload the page after the alert is closed
+                                window.location.reload();
+                            });
+                        })
+                        .catch(error => {
+                            // Handle error response
+                            console.error('Error uploading image:', error);
+                        });
+                }
             }
-        }
+            $(document).ready(function() {
 
-             // Attach event listeners
-            $('#profile-image').on('click', openFileInput);
-            $('.edit-input').on('change', function () {
-                updateProfileImage(this);
+                // Logo
+                var progressBarLogo = document.getElementById('progressBarLogo');
+                var progressLogo = document.getElementById('progressLogo');
+                var logoPreview = document.getElementById('logo-preview');
+                var logoUploadArea = document.getElementById('upload-area');
+
+                // Function to open file input when clicking on the profile image
+                function openFileInput() {
+                    $('.edit-input').click();
+                }
+
+                // Function to update profile image on file selection
+
+                // Attach event listeners
+                $('#profile-image').on('click', openFileInput);
+                $('.edit-input').on('change', function() {
+                    updateProfileImage(this);
+                });
             });
-        });
-</script>
-    <!-- Main Content -->
-@endpush
+        </script>
+        <!-- Main Content -->
+    @endpush
 @endsection
