@@ -211,8 +211,8 @@ class SubscriptionController extends Controller
                 "customerId" => auth()->user()->dibsy_customer_id,
                 "cardToken" => $request->payment_token,
                 "description" => "Order #".$subscription->id,
-                "redirectUrl" => "https://portal.simbillsoft.in/subscription/order/".$subscription->id,
-                "webhookUrl" => "https://portal.simbillsoft.in/subscription/payment-webhook/".$subscription->id,
+                "redirectUrl" => "https://test.dialectb2b.com/subscription/order/".$subscription->id,
+                "webhookUrl" => "https://test.dialectb2b.com/subscription/payment-webhook/".$subscription->id,
                 "metadata" => [
                         "name" => $request->name,
                         "email" => $request->email,

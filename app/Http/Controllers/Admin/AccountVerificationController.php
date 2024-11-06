@@ -88,8 +88,8 @@ class AccountVerificationController extends Controller
                 "pobox" => $request->pobox
             ],
             "description" => "Order #".$subscription->id,
-            "redirectUrl" => "https://portal.simbillsoft.in/admin/verification/payment-response/".$subscription->id,
-            "webhookUrl" => "https://portal.simbillsoft.in/admin/verification/payment-response-webhook/".$subscription->id
+            "redirectUrl" => "https://test.dialectb2b.com/admin/verification/payment-response/".$subscription->id,
+            "webhookUrl" => "https://test.dialectb2b.com/admin/verification/payment-response-webhook/".$subscription->id
         ];
         
          $publicKey = config('dibsy.public_key');

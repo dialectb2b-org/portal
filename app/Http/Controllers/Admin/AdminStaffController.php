@@ -66,7 +66,7 @@ class AdminStaffController extends Controller
             'name' => 'required|string|max:50',
             'email' => 'required|email|unique:company_users,email,'.$id,
             'designation' => 'required|string|max:50',
-            'mobile' => 'nullable|different:landline,extension|digits_between:4,13|unique:company_users,mobile,'.$id,
+            'mobile' => 'nullable|different:landline,extension|digits_between:4,13',//|unique:company_users,mobile,'.$id
             'landline' => 'different:mobile,extension|nullable|digits_between:4,13',
             'extension' => 'different:mobile,landline|nullable|digits_between:1,13',
         ]);

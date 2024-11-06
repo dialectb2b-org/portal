@@ -163,8 +163,8 @@ class CategoryPurchaseController extends Controller
                 "customerId" => auth()->user()->dibsy_customer_id,
                 "cardToken" => $request->payment_token,
                 "description" => "Order #".$subscription->id,
-                "redirectUrl" => "https://portal.simbillsoft.in/category-purchase/payment-response/".$subscription->id,
-                "webhookUrl" => "https://portal.simbillsoft.in/category-purchase/payment-webhook/".$subscription->id,
+                "redirectUrl" => "https://test.dialectb2b.com/category-purchase/payment-response/".$subscription->id,
+                "webhookUrl" => "https://test.dialectb2b.com/category-purchase/payment-webhook/".$subscription->id,
                 "metadata" => [
                     "name" => $request->name,
                     "email" => $request->email,

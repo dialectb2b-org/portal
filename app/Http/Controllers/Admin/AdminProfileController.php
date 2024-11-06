@@ -74,8 +74,8 @@ class AdminProfileController extends Controller
                 "currency" => "QAR"
             ],
             "description" => "Order #".$company_id,
-            "redirectUrl" => "https://portal.simbillsoft.in/admin/verification/success/".$company_id,
-            "webhookUrl" => "https://portal.simbillsoft.in/webhook/".$company_id
+            "redirectUrl" => "https://test.dialectb2b.com/admin/verification/success/".$company_id,
+            "webhookUrl" => "https://test.dialectb2b.com/webhook/".$company_id
         ];
         
          $publicKey = 'sk_test_eae8cb43fde9ec66102b7642ec9bcd2cb861';

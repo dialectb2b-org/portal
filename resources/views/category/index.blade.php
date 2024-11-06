@@ -199,6 +199,8 @@
         $(document).on('click', '.category', function(e){
             e.preventDefault(); 
             var id = $(this).data('id');
+            $('.category').removeClass('text-primary');
+            $(this).addClass('text-primary');
             var action = '/sign-up/business-category/subcategory';
             var data = { 'id' : id }
             axios.post(action,data)
