@@ -287,7 +287,7 @@
             })
             .then(response => {
                     // Update the profile image on the front end
-                    document.querySelector('#profile-image img').src = response.data.filepath;
+                    document.querySelector('#profile-image-preview').src = response.data.filepath;
                     Swal.fire({
                         toast: true,
                         icon: 'success',
