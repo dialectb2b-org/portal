@@ -72,7 +72,9 @@
                              <form action="{{ route('admin.procurement.report') }}" method="post">
                                     @csrf
                                 <div class="col-md-12 d-flex justify-content-end pb-4">
-                                        <input class="date-print-sec d-flex align-items-center " type="text" name="daterangeprocurement" value="" />
+                                        {{-- <input class="date-print-sec d-flex align-items-center " type="text" name="daterangeprocurement" value="" /> --}}
+                                        <input class="date-print-sec d-flex align-items-center" type="text" id="start_date" name="start_date" placeholder="Start Date" />
+                                        <input class="date-print-sec d-flex align-items-center ml-1" type="text" id="end_date" name="end_date" placeholder="End Date" />
                                        
                                     
                                    
@@ -161,8 +163,10 @@
                                 <form action="{{ route('admin.sales.report') }}" method="post">
                                     @csrf
                                     <div class="col-md-12 d-flex justify-content-end pb-4">
-                                        <div class=" d-flex ">
-                                            <input class="date-print-sec d-flex align-items-center " type="text" name="daterangesales" value="" />
+                                        <div class="d-flex">
+                                            {{-- <input class="date-print-sec d-flex align-items-center " type="text" name="daterangesales" value="" /> --}}
+                                            <input class="date-print-sec d-flex align-items-center" type="text" id="start_date_sales" name="start_date_sales" placeholder="Start Date" />
+                                            <input class="date-print-sec d-flex align-items-center ml-2" type="text" id="end_date_sales" name="end_date_sales" placeholder="End Date" />
                                         </div>
                                        
                                         <div class="form-group">
@@ -328,76 +332,164 @@
     chartProcurement.draw(dataPro, options);
 
 
-      $('input[name="daterangesales"]').daterangepicker({
-            opens: 'left',
-             locale: {
-                format: 'DD-MM-YYYY' 
-            },
-            startDate: moment().subtract(1, 'months'),
-            endDate: moment()
-          }, function(start, end, label) {
-              var start_date = start.format('YYYY-MM-DD');
-              var end_date = end.format('YYYY-MM-DD');
-              var action = "{{ route('admin.chart') }}";
-              axios.post(action, {start_date:start_date,end_date:end_date,role:3})
-                    .then((response) => {
-                        // Handle success response
+    //   $('input[name="daterangesales"]').daterangepicker({
+    //         opens: 'left',
+    //          locale: {
+    //             format: 'DD-MM-YYYY' 
+    //         },
+    //         startDate: moment().subtract(1, 'months'),
+    //         endDate: moment()
+    //       }, function(start, end, label) {
+    //           var start_date = start.format('YYYY-MM-DD');
+    //           var end_date = end.format('YYYY-MM-DD');
+    //           var action = "{{ route('admin.chart') }}";
+    //           axios.post(action, {start_date:start_date,end_date:end_date,role:3})
+    //                 .then((response) => {
+    //                     // Handle success response
                         
-                        var data = google.visualization.arrayToDataTable([
-                          ['Label', 'Value'], // Add a column for custom colors
-                          ['Open Enquiry', response.data.open], // Custom color for slice 1
-                          ['Closed Enquiry', response.data.closed], // Custom color for slice 2
-                          ['Expired', response.data.expired],// Custom color for slice 3
+    //                     var data = google.visualization.arrayToDataTable([
+    //                       ['Label', 'Value'], // Add a column for custom colors
+    //                       ['Open Enquiry', response.data.open], // Custom color for slice 1
+    //                       ['Closed Enquiry', response.data.closed], // Custom color for slice 2
+    //                       ['Expired', response.data.expired],// Custom color for slice 3
                           
-                        ]);
+    //                     ]);
                         
-                        chartSales.draw(data, options);
+    //                     chartSales.draw(data, options);
                         
-                        $('#sales-open').text(response.data.open);
-                        $('#sales-closed').text(response.data.closed);
-                        $('#sales-expired').text(response.data.expired);
-                    })
-                    .catch((error) => {
-                        // Handle error response
-                        console.log(error);
-                    });
+    //                     $('#sales-open').text(response.data.open);
+    //                     $('#sales-closed').text(response.data.closed);
+    //                     $('#sales-expired').text(response.data.expired);
+    //                 })
+    //                 .catch((error) => {
+    //                     // Handle error response
+    //                     console.log(error);
+    //                 });
              
-          });
+    //       });
+
+    $('#start_date_sales').daterangepicker({
+        singleDatePicker: true,
+        opens: 'left',
+        locale: { format: 'DD-MM-YYYY' },
+        startDate: moment().subtract(1, 'months')
+    });
+
+    // Initialize the end date field (today's date)
+    $('#end_date_sales').daterangepicker({
+        singleDatePicker: true,
+        opens: 'left',
+        locale: { format: 'DD-MM-YYYY' },
+        startDate: moment(),
+        maxDate: moment() 
+    });
+
+    // Capture changes to trigger data update
+    $('#start_date_sales, #end_date_sales').on('apply.daterangepicker', function() {
+        var start_date = $('#start_date_sales').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        var end_date = $('#end_date_sales').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        
+        // Define the action URL for your request
+        var action = "{{ route('admin.chart') }}";
+        
+        axios.post(action, { start_date: start_date, end_date: end_date, role: 3 })
+            .then((response) => {
+                // Handle success response and update the chart and values
+                var data = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Open Enquiry', response.data.open],
+                    ['Closed Enquiry', response.data.closed],
+                    ['Expired', response.data.expired]
+                ]);
+                
+                chartSales.draw(data, options);
+                $('#sales-open').text(response.data.open);
+                $('#sales-closed').text(response.data.closed);
+                $('#sales-expired').text(response.data.expired);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
       
-       $('input[name="daterangeprocurement"]').daterangepicker({
-            opens: 'left',
-            locale: {
-                format: 'DD-MM-YYYY' 
-            },
-            startDate: moment().subtract(1, 'months'),
-            endDate: moment()
-          }, function(start, end, label) {
-              var start_date = start.format('YYYY-MM-DD');
-              var end_date = end.format('YYYY-MM-DD');
-              var action = "{{ route('admin.chart') }}";
-              axios.post(action, {start_date:start_date,end_date:end_date,role:2})
-                    .then((response) => {
+    //    $('input[name="daterangeprocurement"]').daterangepicker({
+    //         opens: 'left',
+    //         locale: {
+    //             format: 'DD-MM-YYYY' 
+    //         },
+    //         startDate: moment().subtract(1, 'months'),
+    //         endDate: moment()
+    //       }, function(start, end, label) {
+    //           var start_date = start.format('YYYY-MM-DD');
+    //           var end_date = end.format('YYYY-MM-DD');
+    //           var action = "{{ route('admin.chart') }}";
+    //           axios.post(action, {start_date:start_date,end_date:end_date,role:2})
+    //                 .then((response) => {
                         
-                        // Handle success response
-                        var data = google.visualization.arrayToDataTable([
-                          ['Label', 'Value'], // Add a column for custom colors
-                          ['Open Enquiry', response.data.open], // Custom color for slice 1
-                          ['Closed Enquiry', response.data.closed], // Custom color for slice 2
-                          ['Expired', response.data.expired],// Custom color for slice 3
+    //                     // Handle success response
+    //                     var data = google.visualization.arrayToDataTable([
+    //                       ['Label', 'Value'], // Add a column for custom colors
+    //                       ['Open Enquiry', response.data.open], // Custom color for slice 1
+    //                       ['Closed Enquiry', response.data.closed], // Custom color for slice 2
+    //                       ['Expired', response.data.expired],// Custom color for slice 3
                           
+    //                     ]);
+                        
+    //                     chartProcurement.draw(data, options);
+                        
+    //                     $('#procurement-open').text(response.data.open);
+    //                     $('#procurement-closed').text(response.data.closed);
+    //                     $('#procurement-expired').text(response.data.expired);
+    //                 })
+    //                 .catch((error) => {
+    //                     // Handle error response
+    //                     console.log(error);
+    //                 });
+    //       });
+      
+            $('#start_date').daterangepicker({
+                singleDatePicker: true,
+                opens: 'left',
+                locale: { format: 'DD-MM-YYYY' },
+                startDate: moment().subtract(1, 'months')
+            });
+
+            // Initialize the end date field (today's date)
+            $('#end_date').daterangepicker({
+                singleDatePicker: true,
+                opens: 'left',
+                locale: { format: 'DD-MM-YYYY' },
+                startDate: moment(),
+                maxDate: moment() 
+            });
+
+            // Capture changes to update chart data
+            $('#start_date, #end_date').on('apply.daterangepicker', function() {
+                var start_date = $('#start_date').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                var end_date = $('#end_date').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                
+                // Define the action URL for your request
+                var action = "{{ route('admin.chart') }}";
+                
+                axios.post(action, { start_date: start_date, end_date: end_date, role: 2 })
+                    .then((response) => {
+                        // Handle success response and update the chart and values
+                        var data = google.visualization.arrayToDataTable([
+                            ['Label', 'Value'],
+                            ['Open Enquiry', response.data.open],
+                            ['Closed Enquiry', response.data.closed],
+                            ['Expired', response.data.expired]
                         ]);
                         
                         chartProcurement.draw(data, options);
-                        
                         $('#procurement-open').text(response.data.open);
                         $('#procurement-closed').text(response.data.closed);
                         $('#procurement-expired').text(response.data.expired);
                     })
                     .catch((error) => {
-                        // Handle error response
                         console.log(error);
                     });
-          });
+            });
       
       
   }

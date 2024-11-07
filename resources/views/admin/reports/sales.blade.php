@@ -64,4 +64,24 @@
         <!-- Team Content Section End -->
 
     </section>
+
+    <script>
+        // Show the modal if there's a success message
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(isset($toEmail))
+                Swal.fire({
+                    title: 'Report Forwarded',
+                    text: 'The report has been successfully forwarded to {{ $toEmail }}',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Back to Dashboard',
+                    cancelButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location = "{{ url('/admin/dashboard') }}";
+                    }
+                });
+            @endif
+        });
+    </script>
     <!-- Main Content Ends -->

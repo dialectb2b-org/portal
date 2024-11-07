@@ -163,9 +163,49 @@
                         </div>
     <!-- Team List Section End -->
 
-
+<!-- Success Modal -->
+@if(isset($toEmail))
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Email Sent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ session('success') }}
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 </section>
+<script>
+    // Show the modal if there's a success message
+    document.addEventListener('DOMContentLoaded', function () {
+        @if(isset($toEmail))
+            Swal.fire({
+                title: 'Report Forwarded',
+                text: 'The report has been successfully forwarded to {{ $toEmail }}',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Back to Dashboard',
+                cancelButtonText: 'Ok'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "{{ url('/admin/dashboard') }}";
+                }
+            });
+        @endif
+    });
+</script>
 <!-- Main Content Ends -->
 
 
