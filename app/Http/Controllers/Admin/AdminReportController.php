@@ -33,11 +33,13 @@ class AdminReportController extends Controller{
         $endDate = $request->input('end_date_sales');
         $dateRangeInput = $startDate . ' - ' . $endDate;
        
+        $company_id = auth()->user()->company_id;
+        $sales = CompanyUser::where('company_id',$company_id)->where('role',3)->first();
         $enquiries = DB::table('enquiries')
                         ->leftJoin('enquiry_relations', 'enquiry_relations.enquiry_id', '=', 'enquiries.id')
                         ->leftJoin('companies', 'companies.id', '=', 'enquiries.company_id')
                         ->leftJoin('sub_categories', 'sub_categories.id', '=', 'enquiries.sub_category_id')
-                        ->where('enquiry_relations.to_id', '=', 27)
+                        ->where('enquiry_relations.to_id', $sales->id)
                         //->whereBetween('enquiries.created_at', [$startDate, $endDate])
                         ->select(
                             'enquiries.created_at',
@@ -61,11 +63,13 @@ class AdminReportController extends Controller{
         $dateRangeInput = $request->daterangesales;
         list($startDate, $endDate) = explode(" - ", $dateRangeInput);
        
+        $company_id = auth()->user()->company_id;
+        $sales = CompanyUser::where('company_id',$company_id)->where('role',3)->first();
         $enquiries = DB::table('enquiries')
                         ->leftJoin('enquiry_relations', 'enquiry_relations.enquiry_id', '=', 'enquiries.id')
                         ->leftJoin('companies', 'companies.id', '=', 'enquiries.company_id')
                         ->leftJoin('sub_categories', 'sub_categories.id', '=', 'enquiries.sub_category_id')
-                        ->where('enquiry_relations.to_id', '=', 27)
+                        ->where('enquiry_relations.to_id', $sales->id)
                         //->whereBetween('enquiries.created_at', [$startDate, $endDate])
                         ->select(
                             'enquiries.created_at',
@@ -130,8 +134,10 @@ class AdminReportController extends Controller{
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $dateRangeInput = $startDate . ' - ' . $endDate;
+        $company_id = auth()->user()->company_id;
 
         $enquiries = Enquiry::with('sender','sub_category','all_replies','action_replies')
+                ->where('enquiries.company_id',$company_id)
                         //->whereBetween('enquiries.created_at', [$startDate, $endDate]) 
                         ->get();
       
@@ -141,12 +147,15 @@ class AdminReportController extends Controller{
     public function procurementPdf (Request $request){
         $dateRangeInput = $request->daterangeprocurement;
         list($startDate, $endDate) = explode(" - ", $dateRangeInput);
+        $company_id = auth()->user()->company_id;
 
         $enquiry = Enquiry::with('sender','sub_category','all_replies','action_replies','sender.company','all_replies.sender','all_replies.sender.company')
-                        //->whereBetween('enquiries.created_at', [$startDate, $endDate]) 
+                ->where('enquiries.company_id',$company_id)
+                //->whereBetween('enquiries.created_at', [$startDate, $endDate]) 
                         ->get()->toArray();
         //return view('admin.reports.procurement-pdf', compact('enquiries','dateRangeInput'));
         $enquiries = Enquiry::with('sender','sub_category','all_replies','action_replies')
+            ->where('enquiries.company_id',$company_id)
                         //->whereBetween('enquiries.created_at', [$startDate, $endDate]) 
                         ->get();
 
