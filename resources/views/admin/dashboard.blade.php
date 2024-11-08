@@ -288,7 +288,16 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+<script>
+    @if (Session::has('profile_updated'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Profile has been successfully <br><br> updated.',
+            html: "<p style='margin-top: 10px; font-size: 16px;'>The new user has been notified via email with a link to activate their account.</p>",
+            confirmButtonText: 'OK',
+        });
+    @endif
+</script>
 <script>
   google.charts.load('current', { packages: ['corechart'] });
   google.charts.setOnLoadCallback(drawChart);

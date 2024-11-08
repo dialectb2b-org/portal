@@ -152,7 +152,7 @@ class AdminStaffController extends Controller
             }
                
             DB::commit();                
-            return redirect()->route('admin.dashboard')->with('success','updated!');
+            return redirect()->route('admin.dashboard')->with('profile_updated','updated!');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('admin.dashboard')->with('error','Something went wrong!');
