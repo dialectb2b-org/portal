@@ -149,10 +149,14 @@ class AdminStaffController extends Controller
             //$result = $this->sendGridEmailService->send($originalValues['email'], $subject, $htmlBody, true);
     
                 \Mail::to($originalValues['email'])->send(new \App\Mail\CommonMail($details));
+                DB::commit();                
+                return redirect()->route('admin.dashboard')->with('profile_updated','The new user has been notified via email with a link to activate their account.');
+            }else{
+                DB::commit();                
+                return redirect()->route('admin.dashboard')->with('profile_updated','The profile update has been successfull.');
             }
                
-            DB::commit();                
-            return redirect()->route('admin.dashboard')->with('profile_updated','updated!');
+            
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('admin.dashboard')->with('error','Something went wrong!');

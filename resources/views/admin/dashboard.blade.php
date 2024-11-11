@@ -293,7 +293,7 @@
         Swal.fire({
             icon: 'success',
             title: 'Profile has been successfully <br><br> updated.',
-            html: "<p style='margin-top: 10px; font-size: 16px;'>The new user has been notified via email with a link to activate their account.</p>",
+            html: "<p style='margin-top: 10px; font-size: 16px;'>{{ Session::get('profile_updated') }}</p>",
             confirmButtonText: 'OK',
         });
     @endif
@@ -377,11 +377,14 @@
              
     //       });
 
+    var createdAt = moment("{{ $company->created_at }}", "YYYY-MM-DD HH:mm:ss");
+
     $('#start_date_sales').daterangepicker({
         singleDatePicker: true,
         opens: 'left',
         locale: { format: 'DD-MM-YYYY' },
-        startDate: moment().subtract(1, 'months')
+        startDate: moment().subtract(1, 'months'),
+        minDate: createdAt
     });
 
     // Initialize the end date field (today's date)
@@ -460,7 +463,8 @@
                 singleDatePicker: true,
                 opens: 'left',
                 locale: { format: 'DD-MM-YYYY' },
-                startDate: moment().subtract(1, 'months')
+                startDate: moment().subtract(1, 'months'),
+                minDate: createdAt
             });
 
             // Initialize the end date field (today's date)

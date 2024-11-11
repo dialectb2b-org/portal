@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\EnquiriesExport;
+use App\Exports\SalesReportExport;
 use App\Http\Controllers\Controller;
 use App\Exports\SalesExport;
 use Illuminate\Http\Request;
@@ -78,15 +80,18 @@ class AdminReportController extends Controller{
                             'enquiries.sub_category_id',
                             'sub_categories.name AS category_name',
                             'enquiries.is_limited',
-                            'enquiries.is_completed'
+                            'enquiries.is_completed',
+                            'enquiry_relations.is_replied',
+                            'enquiries.expired_at'
                         )
                         ->get()->toArray();
 
         view()->share('enquiries',$enquiries);
-        $pdf = PDF::loadView('admin.reports.sales-pdf', $enquiries)->setPaper('a3', 'landscape');
+        // $pdf = PDF::loadView('admin.reports.sales-pdf', $enquiries)->setPaper('a3', 'landscape');
         //return $pdf->download('sales.pdf');
         
-        $pdfContent = $pdf->output(); 
+        // $pdfContent = $pdf->output(); 
+        $excelContent = Excel::raw(new SalesReportExport($enquiries), \Maatwebsite\Excel\Excel::XLSX);
 
         // Send Email with PDF Attachment
         $toEmail = auth()->user()->email;
@@ -108,12 +113,15 @@ class AdminReportController extends Controller{
         $htmlBody = view('email.common', compact('details'))->render();
     
         // Send the email with the PDF attachment
-        Mail::send([], [], function ($mail) use ($toEmail, $subject, $htmlBody, $pdfContent) {
+        Mail::send([], [], function ($mail) use ($toEmail, $subject, $htmlBody, $excelContent) {
             $mail->to($toEmail)
                 ->subject($subject)
                 ->html($htmlBody)
-                ->attachData($pdfContent, 'sales-report-pdf.pdf');
+                ->attachData($excelContent, 'sales-report.xlsx', [
+                    'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                ]);
         });
+        //->attachData($pdfContent, 'sales-report-pdf.pdf');
         // $message = 'Please find the attached PDF file.';
         
         // Mail::send([], [], function ($mail) use ($toEmail, $subject, $message, $pdfContent) {
@@ -160,10 +168,11 @@ class AdminReportController extends Controller{
                         ->get();
 
         view()->share('enquiries',$enquiry);
-        $pdf = PDF::loadView('admin.reports.procurement-pdf', $enquiry)->setPaper('a1', 'landscape');
+        // $pdf = PDF::loadView('admin.reports.procurement-pdf', $enquiry)->setPaper('a1', 'landscape');
         //return $pdf->download('procurement.pdf');
         
-        $pdfContent = $pdf->output(); 
+        // $pdfContent = $pdf->output(); 
+        $excelContent = Excel::raw(new EnquiriesExport($enquiry), \Maatwebsite\Excel\Excel::XLSX);
 
         // Send Email with PDF Attachment
         $toEmail = auth()->user()->email;
@@ -185,13 +194,15 @@ class AdminReportController extends Controller{
         $htmlBody = view('email.common', compact('details'))->render();
     
         // Send the email with the PDF attachment
-        Mail::send([], [], function ($mail) use ($toEmail, $subject, $htmlBody, $pdfContent) {
+        Mail::send([], [], function ($mail) use ($toEmail, $subject, $htmlBody, $excelContent) {
             $mail->to($toEmail)
                 ->subject($subject)
                 ->html($htmlBody)
-                ->attachData($pdfContent, 'procurement-report-pdf.pdf');
+                ->attachData($excelContent, 'procurement-report.xlsx', [
+                    'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                ]);
         });
-
+        // ->attachData($pdfContent, 'procurement-report-pdf.pdf');
         // $message = 'Please find the attached PDF file.';
         
         // Mail::send([], [], function ($mail) use ($toEmail, $subject, $message, $pdfContent) {

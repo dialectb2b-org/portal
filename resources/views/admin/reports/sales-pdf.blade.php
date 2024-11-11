@@ -97,7 +97,12 @@ table {
                             <td>{{ $enquiry->category_name }}</td>
                             <td>{{ $enquiry->is_limited == 0 ? 'Normal' : 'Limited Enquiry' }}</td>
                             <td>
-                            </td>
+                              @if ($enquiry->is_replied == 1)
+                                  {{ 'Replied' }}
+                              @else
+                                  {{ $enquiry->expired_at > now() ? 'Expired' : 'Open' }}
+                              @endif
+                          </td>
                         </tr>
                     </tr>
                 @endforeach                  
