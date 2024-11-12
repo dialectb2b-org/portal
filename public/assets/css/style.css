@@ -5038,6 +5038,91 @@ ul.drop-todo ul li:first-child{
   top: -7px;
   border: 3px solid #fff;
 }
+/* New Styles 14-06-2024*/
+.welcome-get-qoute h1{
+  font-size: 24px;
+  margin: 20px 0;
+  padding-top: 20px;
+}
+
+.welcome-get-qoute h1 span{
+  color: #EC2531;
+  font-weight: 900;
+    font-family: 'Lato', sans-serif;
+}
+
+.welcome-get-qoute p{
+  
+  font-weight: 500;
+}
+
+/* New Styles 21-06-2024*/
+
+.how-it-works{
+  padding: 40px 0 30px 0;
+}
+.how-it-works h1{
+  font-size: 22px;
+  padding: 0px 0 30px 0;
+}
+.how-it-works h1 a{
+  font-size: 22px;
+  font-weight: 500;
+  color: #EC2531;
+}
+.box-shadow-how{
+  -webkit-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.15);
+-moz-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.15);
+box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.15);
+width: 301px !important;
+margin-right: 20px !important;
+min-height: 360px !important;
+}
+.box-shadow-how p{
+  text-align: center;
+  color: #20285B;
+  font-size: 15px;
+}
+.box-shadow-how h3 {
+  color: #20285B;
+  font-size: 17px !important;
+}
+
+.how-process-main{
+width: 237px !important;
+    margin-right: 20px !important;
+    min-height: 360px !important;
+}
+
+.how-process-main h3 {
+  color: #20285B;
+  font-size: 17px !important;
+  text-align: center;
+}
+.how-process-main p{
+  text-align: center;
+  color: #20285B;
+  font-size: 15px;
+}
+.process-count{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background: #20285B;
+  text-align: center;
+  color: #FFF;
+  font-weight: 500;
+  font-size: 21px;
+  margin: 10px 0;
+  position: relative;
+}
+.vertical-count-line{
+  position: absolute;
+  height: 6px;
+  background: #9195AD;
+  width: 980px;
+  left: 50px;
+}
 
 /* New Styles 27-06-2024*/
 

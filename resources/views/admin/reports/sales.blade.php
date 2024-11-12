@@ -51,7 +51,7 @@
                                     @if ($enquiry->is_replied == 1)
                                         {{ 'Replied' }}
                                     @elseif ($enquiry->is_superseded == 1)
-                                        {!! '<span title="This Company Has Superseded">Invalid</span>' !!}
+                                        {!! '<span title="This company has been superseded">Invalid</span>' !!}
                                     @else
                                         {{ $enquiry->expired_at < now() ? 'Expired' : 'Open' }}
                                     @endif

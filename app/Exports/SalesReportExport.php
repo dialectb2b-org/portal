@@ -35,6 +35,8 @@ class SalesReportExport implements FromArray, WithHeadings, WithEvents, ShouldAu
 
             if ($enquiry->is_replied == 1){
                 $row[] = 'Replied';
+            }elseif($enquiry->is_superseded == 1){
+                $row[] = 'Invalid';
             }else{
                 $row[] = $enquiry->expired_at > now() ? 'Expired' : 'Open';
             }
