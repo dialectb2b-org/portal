@@ -50,7 +50,7 @@
                                 <td>
                                     @if ($enquiry->is_replied == 1)
                                         {{ 'Replied' }}
-                                    @elseif ($enquiry->is_overlap == 1)
+                                    @elseif ($enquiry->is_superseded == 1)
                                         {{ '<span title="This Company Has Superseded">Invalid</span>' }}
                                     @else
                                         {{ $enquiry->expired_at < now() ? 'Expired' : 'Open' }}
