@@ -26,7 +26,7 @@
                     </div>
                 </form>
             </div>
-            <div class="table-responsive" style="max-height: 15cm;">
+            <div class="table-responsive" style="max-height: 14cm;">
                 <table class="table report-main-tbl">
                     <thead>
                         <tr>
@@ -51,7 +51,7 @@
                                     @if ($enquiry->is_replied == 1)
                                         {{ 'Replied' }}
                                     @else
-                                        {{ $enquiry->expired_at > now() ? 'Expired' : 'Open' }}
+                                        {{ $enquiry->expired_at < now() ? 'Expired' : 'Open' }}
                                     @endif
                                 </td>
                             </tr>

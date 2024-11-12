@@ -30,20 +30,20 @@
                     </form>
                 </div>
                 <div class="">
-                    <div class="table-responsive" style="max-height: 15cm;">
-                    <table class="table report-main-tbl">
-                        <thead>
-                            <tr>
-                                <th scope="col">Enquiry</th>
-                                <th scope="col">Type Of Enquiry</th>
-                                <th scope="col">List Of Participants</th>
-                                <th scope="col">Screening Ratio</th>
-                                <th scope="col">Screening Status</th>
-                                <th scope="col">Bid Rating</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Shared To</th>
-                            </tr>    
-      </thead>
+                    <div class="table-responsive" style="max-height: 14cm;">
+                        <table class="table report-main-tbl">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Enquiry</th>
+                                    <th scope="col">Type Of Enquiry</th>
+                                    <th scope="col">List Of Participants</th>
+                                    <th scope="col">Screening Ratio</th>
+                                    <th scope="col">Screening Status</th>
+                                    <th scope="col">Bid Rating</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Shared To</th>
+                                </tr>    
+                            </thead>
                             <tbody>
                                 @foreach($enquiries as $key => $enquiry)
                                     <tr>

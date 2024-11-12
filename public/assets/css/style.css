@@ -1019,24 +1019,101 @@ ul.all-bid-ul li.active.round-bullet2 {
   background-size: 9px 9px;
 }
 
+/*  
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 8px;
+  height: 8px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+  border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #A2A2A2;
+  border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #919191;
 }
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-color: #A2A2A2;
+  height: 14px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  background-color: #919191;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-color: #A2A2A2;
+  height: 14px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+  background-color: #919191;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-color: #A2A2A2;
+  width: 14px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  background-color: #919191;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-color: #A2A2A2;
+  width: 14px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment:hover {
+  background-color: #919191;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement::after {
+  content: "▲";
+  color: #FFFFFF;
+  font-size: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment::after {
+  content: "▼";
+  color: #FFFFFF;
+  font-size: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement::after {
+  content: "◀";
+  color: #FFFFFF;
+  font-size: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment::after {
+  content: "▶";
+  color: #FFFFFF;
+  font-size: 10px;
+}*/
 
 .last-sec-main {
   background: #FFFFFF;
