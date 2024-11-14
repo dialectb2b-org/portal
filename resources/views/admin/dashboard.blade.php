@@ -11,14 +11,14 @@
                         <p>A verified badge on Dialectb2b.com enhances credibility and trust, fostering stronger connections and boosting industry reputation.</p>
                         <div>
                             <a href="{{ route('admin.paymentVerification.info') }}" class="px-4">Get Verified Now</a>
-                            <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="$('.get-verify-badge').addClass('d-none')"></button>
                         </div>
                     </div>
                     @elseif($company->is_verified === 2)
                     <div class="get-verify-badge d-flex  align-items-center justify-content-between">
                         <p>Account Verification Under Review!</p>
                         <div>
-                            <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="$('.get-verify-badge').addClass('d-none')"></button>
                         </div>
                     </div>
                 @endif

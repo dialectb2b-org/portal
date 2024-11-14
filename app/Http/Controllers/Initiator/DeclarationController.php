@@ -70,6 +70,11 @@ class DeclarationController extends Controller
         return view('initiator.declaration',compact('company','checklist'));
     }
 
+    public function terms()
+    {
+        return view('initiator.terms-and-conditions');
+    }
+
     public function edit(){
         //$comp = Cache::get('company');
         $comp = session('company');

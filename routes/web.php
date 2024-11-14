@@ -116,6 +116,7 @@ Route::delete('/sign-up/business-category/delete/{id}', [BusinessCategoryControl
 Route::post('/sign-up/business-category/add', [BusinessCategoryController::class,'addActivity'])->name('sign-up.business-category.add');
  
 Route::get('/sign-up/declaration', [DeclarationController::class,'index'])->name('sign-up.declaration');
+Route::get('/sign-up/terms-and-conditions', [DeclarationController::class,'terms'])->name('sign-up.terms-and-conditions');
 Route::get('/sign-up/download-declaration', [DeclarationController::class,'download'])->name('sign-up.declaration.download');
 Route::post('/sign-up/declaration/upload', [DeclarationController::class,'upload'])->name('sign-up.declaration.upload');
 Route::post('/sign-up/declaration/delete', [DeclarationController::class,'delete'])->name('sign-up.declaration.delete');

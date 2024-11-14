@@ -153,7 +153,7 @@ class AdminStaffController extends Controller
                 return redirect()->route('admin.dashboard')->with('profile_updated','The new user has been notified via email with a link to activate their account.');
             }else{
                 DB::commit();                
-                return redirect()->route('admin.dashboard')->with('profile_updated','The profile update has been successfull.');
+                return redirect()->route('admin.dashboard')->with('profile_updated','');
             }
                
             

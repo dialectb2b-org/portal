@@ -2,6 +2,20 @@
 @section('content')
     <!-- Header Starts -->
     @include('initiator.layouts.header')
+    <style>
+        /* Style the checkbox when focused */
+        .cust-checkbox input:focus ~ .checkmark {
+            background-color: blue;
+            border-color: cyan;
+        }
+        
+        /* Style the label when the checkbox is focused */
+        .cust-checkbox input:focus + label {
+            background-color: cyan;
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
     <!-- Header Ends -->
 
     <!--Declaration Section Starts -->
@@ -150,17 +164,22 @@
                             </div> 
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-4">
                                     <div>
-                                        <embed src="{{ asset('UserAgreementCompany.pdf') }}" class="license-preview d-flex align-items-center justify-content-center">
+                                        {{-- <embed src="{{ asset('UserAgreementCompany.pdf') }}" class="license-preview d-flex align-items-center justify-content-center"> --}}
                                     <!--<embed src="{{ asset($company->document->doc_file ?? '') }}" class="license-preview d-flex align-items-center justify-content-center">-->
                                         <!-- CR License Preview -->
+                                        <label class="cust-checkbox">Accept the <a href="{{ url('/sign-up/terms-and-conditions') }}" target="blank">terms and conditions</a>
+                                            <input id="terms" type="checkbox">
+                                            <span class="checkmark"></span>
+                                         </label>
+                                         <span id="terms-error" style="color: red; display: none;">Please accept the terms and conditions to proceed.</span>
                                     </div>
                                     <div id="declaration-download-area"  class="read-declaration {{ $company->decleration ? 'd-none' : '' }}">
-                                        Please read the declaration carefully and select 'agree & download' to proceed.
+                                        Please read the declaration carefully and select 'download' to proceed.
 
                                         <div class="form-group agree-btn" >
-                                            <a href="{{ route('sign-up.declaration.download') }}" type="button" value="Agree & Download" onclick="$('#upload-area').show();" class="btn btn-secondary">Agree & Download</a>
+                                            <a href="{{ route('sign-up.declaration.download') }}" type="button" value="Agree & Download" onclick="handleDownload(event);" class="btn btn-secondary">Download</a>
                                         </div>
             
 
@@ -228,6 +247,27 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+    function handleDownload(event) {
+        // Prevent default download behavior
+        event.preventDefault();
+
+        // Check if the terms checkbox is checked
+        if (!document.getElementById('terms').checked) {
+            // Show the error message if terms are not accepted
+            document.getElementById('terms-error').style.display = 'block';
+        } else {
+            // Hide the error message if terms are accepted
+            document.getElementById('terms-error').style.display = 'none';
+            
+            // Show the upload area
+            document.getElementById('upload-area').style.display = 'block';
+
+            // Redirect to the download route
+            window.location.href = "{{ route('sign-up.declaration.download') }}";
+        }
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
