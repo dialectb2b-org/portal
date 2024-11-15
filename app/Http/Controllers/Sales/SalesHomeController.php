@@ -190,7 +190,7 @@ $query->whereHas('enquiry', function ($query) use ($request) {
     if (!is_null($request->keyword)) {
         $query->where(function ($query) use ($request) {
             $query->where('enquiries.reference_no', 'like', '%' . $request->keyword . '%')
-                  ->orWhere('enquiries.subject', 'like', '%' . $request->keyword . '%');
+            ->orWhere('enquiries.subject', 'like', '%' . $request->keyword . '%');
         });
     }
 

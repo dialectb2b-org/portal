@@ -65,7 +65,14 @@
             <div id="quote-content" class="col-md-6 pl-0 received-open" style="display: block;">
                 <div class="bid-detail-head">
                     <div class="d-flex justify-content-between">
-                        <h1>{{ $selected_enquiry->enquiry->sender->company->name }}</h1>
+                        <h1>{{ $selected_enquiry->enquiry->sender->company->name }}
+                            @if($selected_enquiry->enquiry->sender->company->is_verified == 1)
+                                <span class="verified">Verified</span>
+                            @else    
+                                <span class="not-verified">Not Verified</span>
+                            @endif
+                        </h1>
+
                         <div class="d-flex date-status">
                             Valid Upto: <h2>{{ \Carbon\Carbon::parse($selected_enquiry->enquiry->expired_at)->format('d F, Y') }}</h2>
                         </div>
@@ -82,11 +89,6 @@
                                     <a href="#" class="report" data-category="enquiry" data-type="Cyberbullying" data-enquiry_id="${enquiry.id}">Cyberbullying</a>
                                 </div>
                             </div>
-                            @if($selected_enquiry->enquiry->sender->company->is_verified == 1)
-                                <span class="verified">Verified</span>
-                            @else    
-                                <span class="not-verified">Not Verified</span>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -356,7 +358,7 @@
         });
 
         $('body').on('keyup','#keyword',function(){
-            //loadReceivedList();
+            loadReceivedList();
         });
 
         $('body').on('change','#mode_filter',function(){

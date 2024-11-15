@@ -43,6 +43,13 @@ class AccountVerificationController extends Controller
         $company = Company::with('document')->find($company_id);
         return view('admin.verfication.intro',compact('user','company'));
     }
+
+    public function paymentVerificationInfo1(){
+        $company_id = auth()->user()->company_id;
+        $user = auth()->user();
+        $company = Company::with('document')->find($company_id);
+        return view('admin.verfication.intro1',compact('user','company'));
+    }
     
     public function paymentVerification(){
         $company_id = auth()->user()->company_id;

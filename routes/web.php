@@ -171,6 +171,7 @@ Route::post('/register/verify-otp', [ReRegistrationController::class,'verifyOtp'
         
         Route::get('/admin/notifications', [AdminProfileController::class,'notification'])->name('admin.notification'); 
         Route::get('/admin/payment-verification/intro', [AccountVerificationController::class,'paymentVerificationInfo'])->name('admin.paymentVerification.info'); 
+        Route::get('/admin/payment-verification/intro1', [AccountVerificationController::class,'paymentVerificationInfo1'])->name('admin.paymentVerification.info1'); 
         Route::get('/admin/payment-verification', [AccountVerificationController::class,'paymentVerification'])->name('admin.paymentVerification'); 
         Route::post('/admin/verification/payment', [AccountVerificationController::class,'paynow'])->name('admin.verification.paynow'); 
         Route::get('/admin/verification/payment-response/{id}', [AccountVerificationController::class,'paymentResponse'])->name('admin.verification.success'); 

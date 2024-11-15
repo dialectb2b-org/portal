@@ -6,7 +6,7 @@
     <div class="container-fluid reg-bg2">
         <section class="container">
             <div class="row how-it-works">
-                <h1>The value of getting verified with <a href="#"> Dialectb2b.com !</a></h1>
+                {{-- <h1>The value of getting verified with <a href="#"> Dialectb2b.com !</a></h1>
                 <div class="d-flex flex-wrap">
                
                     <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">
@@ -37,9 +37,9 @@
                         <p class="mt-2">Verification aids in identifying genuine entities, reducing the risk of scams and deceptive practices, and showcasing a commitment to maintaining a safe online presence.</p>
                     </div>
     
-                </div>
+                </div> --}}
 
-                {{-- <h1 class="mt-5">Here's how this process might work</h1>
+                <h1 class="mt-5">Here's how this process might work</h1>
 
                 <div class="d-flex flex-wrap position-relative mb-5">
 
@@ -89,10 +89,10 @@
                             and Badge</h3>
                         <p class="mt-2">Once the transaction details are confirmed, Dialectb2b.com provides a "Verified" badge on the company's home page, indicating successful verification.</p>
                     </div>
-                </div> --}}
+                </div>
                     
                 <div class="form-group proceed-btn" style="text-align: right;">
-                    <a href="{{ route('admin.paymentVerification.info1') }}" class="btn btn-secondary">Proceed</a>
+                    <a href="{{ route('subscription.plans') }}" class="btn btn-secondary">Proceed</a>
                 </div>
                 
             </div>

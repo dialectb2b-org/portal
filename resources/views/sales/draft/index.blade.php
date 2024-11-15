@@ -275,7 +275,7 @@
         });
 
         $('body').on('keyup','#keyword',function(){
-            //loadReceivedList();
+            loadReceivedList();
         });
 
         $('body').on('change','#mode_filter',function(){

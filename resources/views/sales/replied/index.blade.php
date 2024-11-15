@@ -232,7 +232,7 @@
         });
 
         $('body').on('keyup','#keyword',function(){
-            // loadRepliedList();
+            loadRepliedList();
         });
 
         $('body').on('change','#mode_filter',function(){
