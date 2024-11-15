@@ -25,13 +25,9 @@
                         <div class="my-quotes-search d-flex align-items-center justify-content-left">
                             <!-- <div class="custom-select" style="margin-left: 0; "> -->
                                 <select id="mode_filter" name="mode_filter" class="form-select">
-                                    <option value=" ">All</option>
-                                    <option value="today">Today </option>
-                                    <option value="yesterday">Yesterday </option>
-                                    <option value="this_week">This week </option>
-                                    <option value="last_week">Last week </option>
-                                    <option value="this_month">This month </option>
-                                    <option value="last_month">Last month </option>
+                                    <option value="newest_on_top">Newest on top</option>
+                                    <option value="oldest_on_top">Oldest on top </option>
+                                    <option value="near_expiry">Near Expiry </option>
                                 </select>
                             <!-- </div> -->
                         </div>
@@ -236,11 +232,11 @@
         });
 
         $('body').on('keyup','#keyword',function(){
-            //loadRepliedList();
+            // loadRepliedList();
         });
 
         $('body').on('change','#mode_filter',function(){
-            //loadRepliedList();
+            loadRepliedList();
         });
 
        

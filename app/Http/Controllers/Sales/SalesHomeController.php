@@ -63,7 +63,9 @@ class SalesHomeController extends Controller
             'enquiry.sender.company',
             'enquiry.all_faqs',
             'enquiry.my_faqs'
-        ])->where('to_id', $user->id);
+        ])->where('to_id', $user->id)
+        ->join('enquiries', 'enquiries.id', '=', 'enquiry_relations.enquiry_id')
+        ->orderBy('enquiries.created_at', 'desc');
 
         $query->whereHas('enquiry', function ($query) use ($request) {
             $query->whereNull('enquiries.shared_to')
@@ -78,31 +80,40 @@ class SalesHomeController extends Controller
     
             if ($request->mode_filter) {
                 switch ($request->mode_filter) {
-                    case 'today':
-                        $query->whereDate('enquiries.created_at', '=', now()->toDateString());
+                    case 'newest_on_top':
+                        $query->orderBy('enquiry_relations.created_at', 'desc');
                         break;
-                    case 'yesterday':
-                        $query->whereDate('enquiries.created_at', '=', now()->subDay()->toDateString());
+                    case 'oldest_on_top':
+                        $query->orderBy('enquiry_relations.created_at', 'asc');
                         break;
-                    case 'this_week':
-                        $query->whereBetween('enquiries.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                    case 'near_expiry':
+                        $query->orderBy('enquiries.expired_at', 'desc');
                         break;
-                    case 'last_week':
-                        $query->whereBetween('enquiries.created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()]);
-                        break;
-                    case 'this_month':
-                        $query->whereYear('enquiries.created_at', now()->year)
-                              ->whereMonth('enquiries.created_at', now()->month);
-                        break;
-                    case 'last_month':
-                        $query->whereYear('enquiries.created_at', now()->subMonth()->year)
-                              ->whereMonth('enquiries.created_at', now()->subMonth()->month);
-                        break;
+                    // case 'today':
+                    //     $query->whereDate('enquiries.created_at', '=', now()->toDateString());
+                    //     break;
+                    // case 'yesterday':
+                    //     $query->whereDate('enquiries.created_at', '=', now()->subDay()->toDateString());
+                    //     break;
+                    // case 'this_week':
+                    //     $query->whereBetween('enquiries.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                    //     break;
+                    // case 'last_week':
+                    //     $query->whereBetween('enquiries.created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()]);
+                    //     break;
+                    // case 'this_month':
+                    //     $query->whereYear('enquiries.created_at', now()->year)
+                    //           ->whereMonth('enquiries.created_at', now()->month);
+                    //     break;
+                    // case 'last_month':
+                    //     $query->whereYear('enquiries.created_at', now()->subMonth()->year)
+                    //           ->whereMonth('enquiries.created_at', now()->subMonth()->month);
+                    //     break;
                 }
             }
         });
 
-        $query->orderBy('enquiry_relations.created_at', 'desc');
+        // $query->orderBy('enquiries.created_at', 'desc');
 
         $enquiries = $query->notExpired()->notReplied()->get();
         
@@ -169,7 +180,8 @@ class SalesHomeController extends Controller
             'enquiry.sender.company',
             'enquiry.all_faqs',
             'enquiry.my_faqs'
-        ])->where('to_id', $user->id);
+        ])->where('to_id', $user->id)
+        ->join('enquiries', 'enquiries.id', '=', 'enquiry_relations.enquiry_id');
 
 $query->whereHas('enquiry', function ($query) use ($request) {
     $query->whereNull('enquiries.shared_to')
@@ -184,31 +196,32 @@ $query->whereHas('enquiry', function ($query) use ($request) {
 
     if ($request->mode_filter) {
         switch ($request->mode_filter) {
-            case 'today':
-                $query->whereDate('enquiries.created_at', '=', now()->toDateString());
+            case 'newest_on_top':
+                // $query->whereDate('enquiries.created_at', '=', now()->toDateString());
+                $query->orderBy('enquiry_relations.created_at', 'desc');
                 break;
-            case 'yesterday':
-                $query->whereDate('enquiries.created_at', '=', now()->subDay()->toDateString());
+            case 'oldest_on_top':
+                // $query->whereDate('enquiries.created_at', '=', now()->subDay()->toDateString());
+                $query->orderBy('enquiry_relations.created_at', 'asc');
                 break;
-            case 'this_week':
-                $query->whereBetween('enquiries.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+            case 'near_expiry':
+                // $query->whereBetween('enquiries.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                $query->orderBy('enquiries.expired_at', 'asc');
                 break;
-            case 'last_week':
-                $query->whereBetween('enquiries.created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()]);
-                break;
-            case 'this_month':
-                $query->whereYear('enquiries.created_at', now()->year)
-                      ->whereMonth('enquiries.created_at', now()->month);
-                break;
-            case 'last_month':
-                $query->whereYear('enquiries.created_at', now()->subMonth()->year)
-                      ->whereMonth('enquiries.created_at', now()->subMonth()->month);
-                break;
+            // case 'last_week':
+            //     $query->whereBetween('enquiries.created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()]);
+            //     break;
+            // case 'this_month':
+            //     $query->whereYear('enquiries.created_at', now()->year)
+            //           ->whereMonth('enquiries.created_at', now()->month);
+            //     break;
+            // case 'last_month':
+            //     $query->whereYear('enquiries.created_at', now()->subMonth()->year)
+            //           ->whereMonth('enquiries.created_at', now()->subMonth()->month);
+            //     break;
         }
     }
 });
-
-$query->orderBy('enquiry_relations.created_at', 'desc');
 
 $enquiries = $query->notExpired()->notReplied()->get();
 

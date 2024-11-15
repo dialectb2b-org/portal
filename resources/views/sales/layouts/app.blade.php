@@ -53,9 +53,9 @@ $(document).ready(function () {
            var notificationAction = "{{ route('sales.notification') }}";
             axios.get(notificationAction)
                  .then((response) => {
-                        console.log(response.data);
+                        // console.log(response.data);
                         response.data.notifications.forEach(function(notification) {
-                            console.log(notification);
+                            // console.log(notification);
                             $('.notification-box').append(`<a href="#">
                                         ${notification.title}
                                         <span class="time">${notification.message}</span>

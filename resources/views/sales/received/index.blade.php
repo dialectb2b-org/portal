@@ -26,13 +26,13 @@
                         <div class="my-quotes-search d-flex align-items-center justify-content-left">
                             <!-- <div class="custom-select" style="margin-left: 0; "> -->
                                 <select id="mode_filter" name="mode_filter" class="form-select">
-                                    <option value=" ">All</option>
-                                    <option value="today">Today </option>
-                                    <option value="yesterday">Yesterday </option>
-                                    <option value="this_week">This week </option>
+                                    <option value="newest_on_top">Newest on top</option>
+                                    <option value="oldest_on_top">Oldest on top </option>
+                                    <option value="near_expiry">Near Expiry </option>
+                                    {{-- <option value="this_week">This week </option>
                                     <option value="last_week">Last week </option>
                                     <option value="this_month">This month </option>
-                                    <option value="last_month">Last month </option>
+                                    <option value="last_month">Last month </option> --}}
                                 </select>
                             <!-- </div> -->
                         </div>
@@ -74,7 +74,7 @@
                         <div class="d-flex"><h2>Date : {{ \Carbon\Carbon::parse($selected_enquiry->enquiry->created_at)->format('d-m-Y') }} | Time : {{ \Carbon\Carbon::parse($selected_enquiry->enquiry->created_at)->format('h:i:s A') }}</h2></div>
                         <div class="d-flex">
                             <div class="dropdown">
-                                <button onclick="myFunction()" class="dropbtn">Report</button>
+                                @if(!$selected_enquiry->enquiry->reply) <button onclick="myFunction()" class="dropbtn">Report</button> @endif
                                 <div id="myDropdown" class="dropdown-content">
                                     <a href="#" class="report" data-category="enquiry" data-type="Spam" data-enquiry_id="${enquiry.id}">Spam</a>
                                     <a href="#" class="report" data-category="enquiry" data-type="Illegal activity" data-enquiry_id="${enquiry.id}">Illegal activity</a>
@@ -167,8 +167,8 @@
                     <article>
                         {!! $selected_enquiry->enquiry->body !!}
                         <hr>
-                         <div class="position-relative d-flex justify-content-start align-item-center">
-                            <img src="{{ env('APP_URL') }}{{ $selected_enquiry->enquiry->sender->company->logo }}" height="55px" />
+                         {{-- <div class="position-relative d-flex justify-content-start align-item-center">
+                            <img src="{{ env('APP_URL') }}{{ '/'.$selected_enquiry->enquiry->sender->company->logo }}" height="55px" />
                             <p class="ms-4"><strong>{{ $selected_enquiry->enquiry->sender->name }}</strong><br>{{ $selected_enquiry->enquiry->sender->designation }}<br>{{ $selected_enquiry->enquiry->sender->company->name }}</p>
                         </div>
                         <div class="position-relative d-flex justify-content-start align-item-center">
@@ -177,6 +177,35 @@
                             for the accuracy or reliability of the content herein. Recipients are advised to independently evaluate the products, services, 
                             and businesses mentioned before entering into any agreements or transactions. Dialectb2b.com disclaims all liability for losses, 
                             damages, or disputes arising from communications facilitated through our platform.</p>
+                        </div> --}}
+                        <div style="font-family: Arial, sans-serif; font-size: 12px; color: #333;">
+                            <!-- Signature Header -->
+                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <img src="{{ env('APP_URL') }}{{ '/' . $selected_enquiry->enquiry->sender->company->logo }}" 
+                                     alt="Company Logo" 
+                                     style="height: 55px; border-radius: 5px; margin-right: 15px;" />
+                        
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; font-size: 14px;">
+                                        {{ $selected_enquiry->enquiry->sender->name }}
+                                    </p>
+                                    <p style="margin: 1px 0 0; color: #555; font-size: 12px;">
+                                        {{ $selected_enquiry->enquiry->sender->designation }}
+                                    </p>
+                                    <p style="margin: 1px 0 0; color: #777; font-size: 12px;">
+                                        {{ $selected_enquiry->enquiry->sender->company->name }}
+                                    </p>
+                                </div>
+                            </div>
+                        
+                            <!-- Disclaimer Section -->
+                            <div style="font-size: 9px; line-height: 1.4; color: #888; text-align: justify; border-top: 1px solid #ddd; padding-top: 10px;">
+                                <strong>Disclaimer:</strong> The information provided in this communication is intended solely for the recipient's 
+                                consideration and does not constitute any endorsement or guarantee by Dialectb2b.com. We cannot be held responsible 
+                                for the accuracy or reliability of the content herein. Recipients are advised to independently evaluate the products, services, 
+                                and businesses mentioned before entering into any agreements or transactions. Dialectb2b.com disclaims all liability for losses, 
+                                damages, or disputes arising from communications facilitated through our platform.
+                            </div>
                         </div>
                     </article>
                     @if($selected_enquiry->enquiry->attachments->count() > 0)
@@ -185,10 +214,10 @@
                     <div class="d-flex flex-wrap align-items-center enquiry-attachments">
                         @foreach($selected_enquiry->enquiry->attachments as $key => $attachment)
                             <span class="d-flex doc-preview align-items-center justify-content-between mb-2">
-                                {{ $attachment->org_file_name ?  $attachment->file_name : $attachment->org_file_name }}
+                                {{ $attachment->org_file_name ?  $attachment->org_file_name : $attachment->file_name }} 
                                 <div class="d-flex align-items-center">
-                                    <a id="attachmets-list" href="{{ config('setup.application_url') }}{{ $attachment->path }}" class="doc-preview-view" target="_blank"></a>
-                                    <a id="attachmets-list" href="{{ config('setup.application_url') }}{{ $attachment->path }}" class="" download>D</a>
+                                    <a id="attachmets-list" href="{{ config('setup.application_url') }}{{ $attachment->path }}" class="doc-preview-view" target="_blank" style="margin-left: 15px;"></a>
+                                    <a id="attachmets-list" href="{{ config('setup.application_url') }}{{ $attachment->path }}" class="" download></a>
                                 </div>
                             </span>
                         @endforeach
@@ -331,7 +360,7 @@
         });
 
         $('body').on('change','#mode_filter',function(){
-            //loadReceivedList();
+            loadReceivedList();
         });
 
         $('body').on('click','.faq',function(){
@@ -365,6 +394,7 @@
 
         $('body').on('click','#send-reply',function(){
             $('#bid-compose-area').show();
+            $('.dropbtn').hide();
             $(this).hide();
         });
 
@@ -395,7 +425,7 @@
         $('body').on('click','#send-respone',function(){
             //var editorContent = tinymce.get('body').getContent();
             var editorContent = editor.value; 
-            console.log(editorContent);
+            // console.log(editorContent);
             var formData = new FormData();
             var serializedData = $('#bid-compose-form').serializeArray();
             $.each(serializedData, function(index, field) {
@@ -702,6 +732,7 @@
             var keyword = $('#keyword').val();
             axios.post(fetchReceivedItemsAction, {mode_filter:mode_filter, keyword:keyword})
                  .then((response) => {
+                    console.log(response.data.status);
                     // Handle success response
                     if(response.data.status === true){
                         let enquiries = response.data.enquiries;
@@ -747,7 +778,7 @@
             axios.post(fetchEnquiryAction, {id:id})
                  .then((response) => {
                     // Handle success response
-                    console.log(response.data.enquiry);
+                    // console.log(response.data.enquiry);
                     let enquiry = response.data.enquiry;
                     $('#quote-content').empty();
                     $('#open').empty();
