@@ -91,25 +91,26 @@ class SalesDraftController extends Controller
     public function fetchAllEnquiries(Request $request){
         $user = auth()->user();
         $query = EnquiryRelation::with('enquiry','enquiry.sub_category','enquiry.sender.company','enquiry.all_faqs','enquiry.my_faqs')->where('to_id',$user->id)
-        ->join('enquiries', 'enquiries.id', '=', 'enquiry_relations.enquiry_id'); //->where('is_closed',0)
-        $query->whereHas('enquiry', function ($query) use ($request){
-            if(!is_null($request->keyword)){
-                $query->where('enquiries.reference_no','like','%'.$request->keyword.'%');
-                $query->orwhere('enquiries.subject','like','%'.$request->keyword.'%');
-            }
+        ->join('enquiries', 'enquiries.id', '=', 'enquiry_relations.enquiry_id')
+        ->join('companies', 'companies.id', '=', 'enquiries.company_id')
+        ->join('sub_categories', 'sub_categories.id', '=', 'enquiries.sub_category_id'); 
+        if (!is_null($request->keyword)) {
+            $query->where(function ($query) use ($request) {
+                $query->where('enquiries.reference_no', 'like', '%' . $request->keyword . '%')
+                ->orWhere('enquiries.subject', 'like', '%' . $request->keyword . '%')
+                ->orWhere('companies.name', 'like', '%' . $request->keyword . '%')
+                ->orWhere('sub_categories.name', 'like', '%' . $request->keyword . '%');
+            });
+        }
+        if ($request->mode_filter) {
             if($request->mode_filter == 'newest_on_top'){
-                //   $query->whereDate('enquiries.created_at', Carbon::today());
-                  $query->orderBy('enquiries.created_at', 'desc');
-              }
-              else if($request->mode_filter == 'oldest_on_top'){
-                //   $query->whereDate('enquiries.created_at', Carbon::yesterday());
-                  $query->orderBy('enquiries.created_at', 'asc');
-              }
-              else if($request->mode_filter == 'near_expiry'){
-                // $query->whereBetween('enquiries.created_at',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+                $query->orderBy('enquiries.created_at', 'desc');
+            }elseif($request->mode_filter == 'oldest_on_top'){
+                $query->orderBy('enquiries.created_at', 'asc');
+            }elseif($request->mode_filter == 'near_expiry'){
                 $query->orderBy('enquiries.expired_at', 'asc');
-              }
-        });
+            }
+        }
         $enquiries = $query->notExpired()->drafted()->latest()->get();
         return response()->json([
             'status' => true,

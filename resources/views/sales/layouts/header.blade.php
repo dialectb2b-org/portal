@@ -65,6 +65,7 @@
                 <ul>
                     <li class="d-flex align-items-center {{ (request()->is('sales/dashboard')) ? 'active' : '' }} my-quotes"><a href="{{ route('sales.dashboard') }}"> <i><img
                                     src="{{ asset('assets/images/my-quotes-ico.svg') }}"></i></a><a href="{{ route('sales.dashboard') }}" class="nav-txt"> Received</a>
+                                    <span class="message-count">5</span>
                             
                     </li>
                     <li class="d-flex align-items-center {{ (request()->is('sales/replied-enquiry')) ? 'active' : '' }} review-list"><a href="{{ route('sales.repliedEnquiry') }}"> <i><img

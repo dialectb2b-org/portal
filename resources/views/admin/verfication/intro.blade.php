@@ -6,7 +6,7 @@
     <div class="container-fluid reg-bg2">
         <section class="container">
             <div class="row how-it-works">
-                <h1>The value of getting verified with <a href="#"> Dialectb2b.com !</a></h1>
+                <h1><span class="back-btn" style="margin-left: 84px;" onclick="history.back()"></span>The value of getting verified with <a href="#"> Dialectb2b.com !</a></h1>
                 <div class="d-flex flex-wrap">
                
                     <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">

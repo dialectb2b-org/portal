@@ -734,7 +734,7 @@
             var keyword = $('#keyword').val();
             axios.post(fetchReceivedItemsAction, {mode_filter:mode_filter, keyword:keyword})
                  .then((response) => {
-                    console.log(response.data.status);
+                    // console.log(response.data.request);
                     // Handle success response
                     if(response.data.status === true){
                         let enquiries = response.data.enquiries;

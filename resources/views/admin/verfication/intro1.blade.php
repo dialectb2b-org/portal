@@ -6,40 +6,7 @@
     <div class="container-fluid reg-bg2">
         <section class="container">
             <div class="row how-it-works">
-                {{-- <h1>The value of getting verified with <a href="#"> Dialectb2b.com !</a></h1>
-                <div class="d-flex flex-wrap">
-               
-                    <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{ asset('assets/images/boosted-ico.svg') }}" alt="">
-                        <h3 class="mt-3">Boosted Credibility</h3>
-                        <p class="mt-2">The verified badge symbolizes authenticity and trustworthiness, leading to stronger connections and increased client trust.
-                        </p>
-                    </div>
-                    
-                    <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{ asset('assets/images/visibility-ico.svg') }}" alt="">
-                        <h3 class="mt-3">Enhanced Visibility</h3>
-                        <p class="mt-2">Verified accounts stand out in searches and recommendations, facilitating easier engagement with clients and partners.
-                        </p>
-                    </div>
-    
-    
-                    <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{ asset('assets/images/protection-ico.svg') }}" alt="">
-                        <h3 class="mt-3">Protection Against Impersonation</h3>
-                        <p class="mt-2">Verification prevents malicious entities from creating fake accounts, safeguarding brand integrity and ensuring a secure online environment.
-                        </p>
-                    </div>
-    
-                    <div class="sales-boxes box-shadow-how d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{ asset('assets/images/risk-management-ico.svg') }}" alt="">
-                        <h3 class="mt-3">Improved Risk Management</h3>
-                        <p class="mt-2">Verification aids in identifying genuine entities, reducing the risk of scams and deceptive practices, and showcasing a commitment to maintaining a safe online presence.</p>
-                    </div>
-    
-                </div> --}}
-
-                <h1 class="mt-5">Here's how this process might work</h1>
+                <h1 class="mt-5"><span class="back-btn" style="margin-left: 84px;" onclick="history.back()"></span>Here's how this process might work</h1>
 
                 <div class="d-flex flex-wrap position-relative mb-5">
 
