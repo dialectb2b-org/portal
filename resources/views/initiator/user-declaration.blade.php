@@ -9,18 +9,7 @@
      <section class="container-fluid d-flex align-items-center login-sec md-4">
            <section class="reg-content-sec">
                         <div class="signup-fields decl-txt">
-                            <div class="reg-navigation-main team-sign-nav-main">
-                                <ul class="d-flex align-items-center">
-        
-                                    <li class="d-flex align-items-center active">
-                                        <small class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
-                                        Declaration
-                                    </li>
-        
-                                </ul>
-                                
-                            </div>
-                            <h1 class="text-center mb-4">Declaration</h1>
+                            <div style="height: 72px;width: 100%;background:#20285B;color:#ffffff;text-align: center;"><h1 class="text-center">Declaration</h1></div>
                            <p>I hereby acknowledge and agree to the following Individual User Agreement:</p>
 
                             <p>By using Dialectb2b.com, I agree to comply with all the terms and conditions herein.</p>
