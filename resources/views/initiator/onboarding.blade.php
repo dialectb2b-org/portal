@@ -9,8 +9,8 @@
                 <a href="{{ url('/') }}"><img src="{{ asset('assets/images/logo.png') }}" alt="XCHANGE"></a>
             </div>
             <div class="header-right-btn">
-                <a href="{{ route('member.signUp') }}" class="btn btn-primary float-right ms-2">Individual Signup </a>
-                <a href="{{ route('sign-up') }}" class="btn btn-primary float-right">Organization Signup</a>
+                {{-- <a href="{{ route('member.signUp') }}" class="btn btn-primary float-right ms-2">Individual Signup </a>
+                <a href="{{ route('sign-up') }}" class="btn btn-primary float-right">Organization Signup</a> --}}
             </div>
         </div>
     </header>
