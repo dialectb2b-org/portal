@@ -85,8 +85,6 @@
         </div>
     </section>
 
-    <!-- Down Arrow -->
-    <a href="#second" class="down-arrow d-flex"></a>
 </div>
 
 <!-- Scripts -->
