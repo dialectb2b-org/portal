@@ -8,9 +8,9 @@
      <!--Activation Section Starts -->
      <section class="container-fluid d-flex align-items-center login-sec md-4">
            <section class="reg-content-sec">
-                        <div class="signup-fields decl-txt">
-                            <div style="height: 72px; width: 100%; background: #20285B; color: #ffffff; display: flex; align-items: center; justify-content: center;margin-bottom: 20px;">
-                                <h1 style="font-size: 24px; margin: 0; font-weight: bold; font-family: Arial, sans-serif; letter-spacing: 1px;">
+                        <div class="card signup-fields decl-txt">
+                            <div style="height: 72px; width: 100%; background: #20285B; display: flex; align-items: center; justify-content: center;margin-bottom: 20px; border-radius: 10px;">
+                                <h1 style="font-size: 24px; margin: 0; font-weight: bold; font-family: Arial, sans-serif; color: #ffffff; ">
                                     Declaration
                                 </h1>
                             </div>
