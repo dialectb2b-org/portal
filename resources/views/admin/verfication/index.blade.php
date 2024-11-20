@@ -61,7 +61,7 @@
                                     <h1 class="pb-2">Payment Info</h1>
                                     <div class="d-flex align-items-center justify-content-between total">
                                         Sub Total
-                                        <span>$60</span>
+                                        <span>${{ $portal_settings->verification_charge }}</span>
                                     </div>
                                 </div>
                             </div>

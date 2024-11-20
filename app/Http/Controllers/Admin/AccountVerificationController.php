@@ -17,6 +17,7 @@ use App\Models\Payment;
 use App\Models\Package;
 use App\Models\Billing;
 use App\Models\BillingDetail;
+use App\Models\PortalSetting;
 use Http;
 use DB;
 use Auth;
@@ -55,7 +56,8 @@ class AccountVerificationController extends Controller
         $company_id = auth()->user()->company_id;
         $user = auth()->user();
         $company = Company::with('document')->find($company_id);
-        return view('admin.verfication.index',compact('user','company'));
+        $portal_settings = PortalSetting::first();
+        return view('admin.verfication.index',compact('user','company','portal_settings'));
     }
     
     public function paynow(Request $request){
@@ -65,13 +67,13 @@ class AccountVerificationController extends Controller
             'email' => 'required|email',
             'code' => 'required|string|max:50',
             'mobile' => 'nullable|different:landline,extension|digits_between:4,13',
-            'address' => 'required|string|max:50',
+            'address' => 'required|string|max:250',
             'pobox' => 'required|string|max:50',
             'location' => 'required|string|max:50',
         ]);
         
         $company_id = auth()->user()->company_id;
-        $amt = 60;
+        $amt = PortalSetting::first()->verification_charge;
         
         $subscription = Subscription::create([
                             'company_id' => auth()->user()->company_id,

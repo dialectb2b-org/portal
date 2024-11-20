@@ -176,6 +176,10 @@ Route::post('/register/verify-otp', [ReRegistrationController::class,'verifyOtp'
         Route::post('/admin/verification/payment', [AccountVerificationController::class,'paynow'])->name('admin.verification.paynow'); 
         Route::get('/admin/verification/payment-response/{id}', [AccountVerificationController::class,'paymentResponse'])->name('admin.verification.success'); 
         Route::get('/admin/verification/payment-response-webhook/{id}', [AccountVerificationController::class,'paymentResponseWebhook'])->name('admin.verification.success'); 
+
+        Route::get('/admin/payment-verification/order-summary',[AccountVerificationController::class,'orderSummary'])->name('admin.verification.orderSummary');
+        Route::post('/admin/payment-verification/make-payment',[AccountVerificationController::class,'makePayment'])->name('admin.verification.makePayment');
+        Route::get('/admin/payment-verification/payment-response/{id}',[AccountVerificationController::class,'paymentResponse'])->name('admin.verification.success');
     // Profile Ends
 
     // Staff Starts

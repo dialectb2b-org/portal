@@ -60,8 +60,8 @@
                 <ul class="drop-profile2">
                     <li onclick="window.location.href = '{{ route('profile.index') }}'">Profile Settings</li>
                     <li onclick="window.location.href = '{{ url('procurement/invite') }}'">Invite Team Members</li>
-                    <li onclick="window.location.href = '#'">Subscription</li>
-                    <li onclick="window.location.href = '{{ route('subscription') }}'">Billing</li>
+                    <li onclick="window.location.href = '{{ route('subscription') }}'">Subscription</li>
+                    <li onclick="window.location.href = '{{ route('billing') }}'">Billing</li>
                     <li onclick="window.location.href = '{{ route('logout') }}'">Logout</li>
                 </ul>
             </div>

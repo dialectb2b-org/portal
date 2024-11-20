@@ -59,7 +59,7 @@
                 </div>
                     
                 <div class="form-group proceed-btn" style="text-align: right;">
-                    <a href="{{ route('subscription.plans') }}" class="btn btn-secondary">Proceed</a>
+                    <a href="{{ route('admin.paymentVerification') }}" class="btn btn-secondary">Proceed</a>
                 </div>
                 
             </div>
