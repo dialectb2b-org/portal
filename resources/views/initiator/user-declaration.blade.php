@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid p-0 ">
+<div class="container-fluid p-0">
     <!-- Header Starts -->
     @include('initiator.layouts.header')
     <!-- Header Ends -->
 
-     <!--Activation Section Starts -->
-     <section class="container-fluid d-flex align-items-center justify-content-center login-sec py-4">
+    <!-- Activation Section Starts -->
+    <section class="container-fluid d-flex align-items-center justify-content-center login-sec py-4">
         <section class="reg-content-sec" style="width: 100%; padding: 20px;">
             <div class="card signup-fields decl-txt" style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 20px; background: #ffffff;">
                 <!-- Header -->
@@ -39,14 +39,11 @@
     
                 <!-- Action Button -->
                 <div class="d-flex justify-content-end">
-                    <input type="submit" value="Agree & Proceed" class="btn btn-secondary" onclick="window.location.href = '{{ route("activate",$user->token) }}';">
-                    {{-- <button class="btn btn-primary" style="background-color: #20285B; border: none; padding: 10px 20px; font-size: 16px; font-weight: bold; border-radius: 5px;" onclick="window.location.href = '{{ route("activate",$user->token) }}';">
-                        Agree & Proceed
-                    </button> --}}
+                    <input type="submit" value="Agree & Proceed" class="btn btn-secondary" onclick="window.location.href = '{{ route("activate", $user->token) }}';">
                 </div>
             </div>
         </section>
     </section>
-     <!--Activation Section Starts -->
+    <!-- Activation Section Ends -->
 </div>
 @endsection
