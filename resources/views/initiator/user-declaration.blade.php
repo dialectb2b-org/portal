@@ -11,7 +11,7 @@
             <div class="card signup-fields decl-txt" style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 20px; background: #ffffff;">
                 <!-- Header -->
                 <div style="height: 72px; width: 100%; background: #20285B; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-bottom: 20px;">
-                    <h1 style="font-size: 28px; margin: 0; font-weight: bold; font-family: Arial, sans-serif; color: #ffffff; text-transform: uppercase;">
+                    <h1 style="font-size: 28px; margin: 0; font-weight: bold; font-family: Arial, sans-serif; color: #ffffff;">
                         Declaration
                     </h1>
                 </div>
