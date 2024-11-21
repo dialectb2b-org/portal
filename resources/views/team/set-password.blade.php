@@ -18,25 +18,25 @@
                 <section class="reg-content-main">
                     <div class="reg-navigation-main team-sign-nav-main">
                         <ul class="d-flex align-items-center">
-                            <li class="d-flex align-items-center  active-first-noradius">
-                                <small
-                                    class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
-                                Company Information
+                            <li class="d-flex align-items-center active-first-noradius">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
+                                Confirm Company Registration
                             </li>
                             <li class="d-flex align-items-center active-noradius">
-                                <small
-                                    class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
-                                Declaration
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
+                                Validate Email
                             </li>
                             <li class="d-flex align-items-center active-noradius">
-                                <small
-                                    class="reg-nav-count-active d-flex align-items-center justify-content-center">3</small>
-                                Profile Creation
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">3</small>
+                                Accept Declaration
                             </li>
-                            <li class="d-flex align-items-center active-last-noradius">
-                                <small
-                                    class="reg-nav-count-active d-flex align-items-center justify-content-center">4</small>
-                                Password Creation
+                            <li class="d-flex align-items-center active-noradius">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">4</small>
+                                Create Profile
+                            </li>
+                            <li class="d-flex align-items-center active">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">5</small>
+                                Set Password
                             </li>
                         </ul>
                     </div>
@@ -61,6 +61,12 @@
                                         <div class="form-group position-relative">
                                             <label>Re-enter Password</label>
                                             <input name="password_confirmation" type="password"  class="form-control">
+                                        </div>
+                                        <div class="row justify-content-center mt-2">
+                                            <p><small class="text-center">By clicking Submit, you agree to our
+                                                    <a href="{{ url('community-guidelines') }}" target="_blank">Community Guidelines</a>,
+                                                    <a href="{{ url('privacy-policy') }}" target="_blank">Privacy Policy</a> and
+                                                    <a href="{{ url('user-agreement') }}" target="_blank">User Agreement</a></small></p>
                                         </div>
                                     </div>
                                 </div>

@@ -18,25 +18,29 @@
                 <section class="reg-content-main">
                     <div class="reg-navigation-main team-sign-nav-main">
                         <ul class="d-flex align-items-center">
-                            <li class="d-flex align-items-center active-first">
+                            <li class="d-flex align-items-center active-first-noradius">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
-                                Company Information
+                                Confirm Company Registration
                             </li>
-                            <li class="d-flex align-items-center">
-                                <small class="reg-nav-count d-flex align-items-center justify-content-center">2</small>
-                                Declaration
+                            <li class="d-flex align-items-center active">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
+                                Validate Email
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">3</small>
-                                Profile Creation
+                                Accept Declaration
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">4</small>
-                                Password Creation
+                                Create Profile
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <small class="reg-nav-count d-flex align-items-center justify-content-center">5</small>
+                                Set Password
                             </li>
                         </ul>
                     </div>
-                    
+
                     <section class="reg-content-sec team-sign-cont-sec">
                         <div class="signup-fields">
                           
@@ -46,7 +50,7 @@
                                 <form id="info-form" action="{{ route('member.checkInfo') }}" method="post">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-12 text-center pb-4"><h3>Enter your name and business email for team user registration. If you're using a non-business email and want to join, check the FAQ section</h3></div>
+                                        <div class="col-md-12 text-center pb-4"><h3>Congratulations! Your organization is registered. Join using your business email ({{ '@'.$company->domain }}). For non-business emails, check our FAQ.</h3></div>
 
                                         <div class="col-md-4">
                                             <div class="text-center">
@@ -55,7 +59,13 @@
                                                 </div>
                                                 <div class="company-prof-name">
                                                     <span>{{ $company->name }}</span><br>
-                                                    <a href="#">{{ $company->domain }}</a>
+                                                    <a href="#">
+                                                        @if (strpos($company->domain, 'www.') !== 0)
+                                                            www.{{ $company->domain }}
+                                                        @else
+                                                            {{ $company->domain }}
+                                                        @endif
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

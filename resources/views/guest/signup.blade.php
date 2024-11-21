@@ -20,19 +20,23 @@
                         <ul class="d-flex align-items-center">
                             <li class="d-flex align-items-center active-first">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
-                                Company Information
+                                Confirm Company Registration
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">2</small>
-                                Declaration
+                                Validate Email
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">3</small>
-                                Profile Creation
+                                Accept Declaration
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">4</small>
-                                Password Creation
+                                Create Profile
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <small class="reg-nav-count d-flex align-items-center justify-content-center">5</small>
+                                Set Password
                             </li>
                         </ul>
                     </div>
@@ -44,11 +48,7 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-6">
                                         <p>Welcome to Dialectb2b.com!</p>
-                                         <small class="first-cont">Enter your organization's Commercial Registration Number (CR) and select country.<br>
-                                                                    Click 'Verify' to confirm registration.<br>
-                                                                    Proceed with Team user registration if registered.<br>
-                                                                    If not registered, sign up through your organization representative.<br>
-                                                                    Need help? Contact us via chat support.</small>
+                                         <small class="first-cont">Enter your organization's Commercial Registration Number (CR) and select your country. Click Check Status to confirm your registration.</small>
                                         <div class="form-group position-relative">
                                             <label>Company ID<span class="mandatory">*</span></label>
                                             <input type="text" placeholder="Company ID" class="form-control" name="company_id">
@@ -66,7 +66,7 @@
                                             </div>         
                                         </div>
                                         <div class="form-group proceed-btn d-flex justify-content-end">
-                                            <input id="submit" type="submit" value="Proceed" class="btn btn-secondary mt-3">
+                                            <input id="submit" type="submit" value="Check Status" class="btn btn-secondary mt-3">
                                         </div>
                                     </div>
                                 </div>

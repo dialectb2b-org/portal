@@ -18,21 +18,25 @@
                 <section class="reg-content-main">
                     <div class="reg-navigation-main team-sign-nav-main">
                         <ul class="d-flex align-items-center">
-                            <li class="d-flex align-items-center active-first">
+                            <li class="d-flex align-items-center active-first-noradius">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
-                                Company Information
+                                Confirm Company Registration
                             </li>
-                            <li class="d-flex align-items-center">
-                                <small class="reg-nav-count d-flex align-items-center justify-content-center">2</small>
-                                Declaration
+                            <li class="d-flex align-items-center active">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
+                                Validate Email
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">3</small>
-                                Profile Creation
+                                Accept Declaration
                             </li>
                             <li class="d-flex align-items-center">
                                 <small class="reg-nav-count d-flex align-items-center justify-content-center">4</small>
-                                Password Creation
+                                Create Profile
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <small class="reg-nav-count d-flex align-items-center justify-content-center">5</small>
+                                Set Password
                             </li>
                         </ul>
                     </div>

@@ -18,30 +18,27 @@
                 <section class="reg-content-main">
                     <div class="reg-navigation-main team-sign-nav-main">
                         <ul class="d-flex align-items-center">
-
-                            <li class="d-flex align-items-center  active-first-noradius">
+                            <li class="d-flex align-items-center active-first-noradius">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">1</small>
-                                Company Information
+                                Confirm Company Registration
                             </li>
-
                             <li class="d-flex align-items-center active-noradius">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">2</small>
-                                Declaration
+                                Validate Email
                             </li>
-
-                            <li class="d-flex align-items-center active">
+                            <li class="d-flex align-items-center active-noradius">
                                 <small class="reg-nav-count-active d-flex align-items-center justify-content-center">3</small>
-                                Profile Creation
+                                Accept Declaration
+                            </li>
+                            <li class="d-flex align-items-center active">
+                                <small class="reg-nav-count-active d-flex align-items-center justify-content-center">4</small>
+                                Create Profile
                             </li>
                             <li class="d-flex align-items-center">
-                                <small class="reg-nav-count d-flex align-items-center justify-content-center">4</small>
-                                Password Creation
+                                <small class="reg-nav-count d-flex align-items-center justify-content-center">5</small>
+                                Set Password
                             </li>
-                          
-                         
-
                         </ul>
-                        
                     </div>
                     
                     <section class="reg-content-sec">
@@ -71,7 +68,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group position-relative">
                                         <label>Email<span class="mandatory">*</span></label>
-                                        <input id="email" type="text" name="email" value="{{ old('email') ?? $user['email'] ?? '' }}" placeholder="Email" class="form-control @error('email') red-border @enderror">
+                                        <input id="email" type="text" name="email" value="{{ old('email') ?? $user['email'] ?? '' }}" placeholder="Email" @if($user['email']){{ 'readonly' }}@endif class="form-control @error('email') red-border @enderror">
                                         <div class="invalid-msg2">@error('email'){{ $message }}@enderror</div>
                                     </div>
                                 </div>
