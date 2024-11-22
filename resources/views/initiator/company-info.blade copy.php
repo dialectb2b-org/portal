@@ -4,7 +4,6 @@
     @include('initiator.layouts.header')
     <!-- Header Ends -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 <style>
 /* Style the checkbox when focused */
 .cust-checkbox input:focus ~ .checkmark {
@@ -273,71 +272,9 @@
         </section>
     </div>
     <!-- Company Info Section Ends -->
-    <!-- Supersede Model -->
-    <div class="modal fade" id="supersede-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title" id="exampleModalLongTitle">Supersede</h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                    
-                </div>
-                <div class="modal-body row pt-0">
-                    <div class="col-md-12 common-popup">
-                        <h3>The company's commercial registration number, "<span id="reg_no"></span>," is already registered with dialectb2b.com. It was registered by:</h3>
-                        
-                    <div class="registered-teams">
-                        <div class="row" id="user_dtl">
-                            {{-- <div class="col-md-4">
-                                <h3>Admin</h3>
-                                Saji Thomas<br>
-                                saji@alfida.com
-                            </div>
-                            <div class="col-md-4">
-                                <h3>Procurement</h3>
-                                Sasi Kumar<br>
-                                sasi@alfida.com
-                            </div>
-                            <div class="col-md-4">
-                                <h3>Sales</h3>
-                                Sreekumar<br>
-                                sreekumar@alfida.com
-                            </div> --}}
-                        </div>
-                    </div>
-
-                    <p>
-                        If you would like to join Dialectb2b.com for procurement activities, please use the individual signup option and join as a team member. To learn more about this process, please <a href="#"> click here</a>.
-                    </p>
-
-                    <p>
-                        However, if you find this registration suspicious, you have the option to supersede the registration with a new account. To proceed with this, you will need to go through the dialectb2b.com verification process. To learn more about the verification process, please <a href="#">click here</a>.
-
-                    </p>
-
-                    <p>If you wish to proceed with the supersede process, please click the button below.</p>
-
-                    </div>
-                </div>
-                <div class="modal-footer model-footer-padd">
-                    <div class="d-flex justify-content-end">
-                        <div class="form-group proceed-btn">
-                            <button type="button" class="btn btn-third" id="ignore_btn">Ignore</button>
-                        </div>
-
-                        <div class="form-group proceed-btn">
-                            <button type="button" class="btn btn-secondary" id="supersede_btn">Supersede</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script>
   //$( function() {
@@ -586,13 +523,6 @@
 
 });
 
-    function maskEmail(email) {
-        const [localPart, domain] = email.split('@');
-        const maskedLocal = localPart[0] + 'xx' + localPart.slice(2, -1).replace(/./g, 'x') + localPart[localPart.length - 1];
-        const maskedDomain = domain[0] + 'xx' + domain.slice(2, -1).replace(/./g, 'x') + domain[domain.length - 1];
-        return `${maskedLocal}@${maskedDomain}`;
-    }
-
     function submitCompanyInfo(action,formData){
         axios.post(action, formData, {
                 headers: {
@@ -610,57 +540,40 @@
                 // Handle error response
                 $('#submit').prop('disabled',false);
                 var firstErrorField = null;
-                console.log(error.response.data.type);
                 if(error.response.data.type == 'superseed'){
                     var admin = error.response.data.admin;
                     var company = error.response.data.company;
                     var inputData = error.response.data.data;
-                    $('#reg_no').text(inputData.document_no);
                     if(admin){
-                        var maskedEmail = maskEmail(admin.email);
-                        var htmlcontent = `<div class="col-md-4"><h3>${ admin.designation }</h3>${ admin.name }<br>${ maskedEmail }</div>`;
-                        // var htmlContent = `<p style="text-align:justify">The company commercial registration number is <b>${inputData.document_no}</b> already registered with dialectb2b.com and was registered by <br>
-                        // <b>Name : ${ admin.name } </b><br><b>Email : ${ admin.email }</b> <br> <b>Designation :${ admin.designation } </b><br>
-                        // If you would like to join Dialectb2b.com for procurement activities, please use the individual signup option and join as a team member.
-                        // To learn more about this process, please click here.<br>
-                        // However, If you find this registration suspicious, You can supersede the registration with a new account. To do this, you will need to go through 
-                        // the diaectb2b.com verification process. To learn more about the dialectb2b.com verification process, please <a href="{{ url('faq') }}" target="_blank">Click here</a></p>`;
+                        var htmlContent = `<p style="text-align:justify">The company commercial registration number is <b>${inputData.document_no}</b> already registered with dialectb2b.com and was registered by <br>
+                        <b>Name : ${ admin.name } </b><br><b>Email : ${ admin.email }</b> <br> <b>Designation :${ admin.designation } </b><br>
+                        If you would like to join Dialectb2b.com for procurement activities, please use the individual signup option and join as a team member.
+                        To learn more about this process, please click here.<br>
+                        However, If you find this registration suspicious, You can supersede the registration with a new account. To do this, you will need to go through 
+                        the diaectb2b.com verification process. To learn more about the dialectb2b.com verification process, please <a href="" target="_blank">Click here</a></p>`;
                     }
                     else{
-                        var maskedEmail = maskEmail(company.email);
-                        var htmlcontent = `<div class="col-md-4"><h3>Company</h3>${ company.name }<br>${ maskedEmail }</div>`;
-                        // var htmlContent = `<p style="text-align:justify">The company commercial registration number is <b>${inputData.document_no}</b> already registered with dialectb2b.com and was registered by <br>
-                        // <b>Company Name : ${ company.name } </b><br> <b>Email : ${ company.email } </b><br>
-                        // If you would like to join Dialectb2b.com for procurement activities, please use the individual signup option and join as a team member. 
-                        // To learn more about this process, please click here.<br>
-                        // However, If you find this registration suspicious, You can supersede the registration with a new account. To do this, you will need to go through 
-                        // the diaectb2b.com verification process. To learn more about the dialectb2b.com verification process, please <a href="{{ url('faq') }}" target="_blank">Click here</a></p>`;
+                        var htmlContent = `<p style="text-align:justify">The company commercial registration number is <b>${inputData.document_no}</b> already registered with dialectb2b.com and was registered by <br>
+                        <b>Company Name : ${ company.name } </b><br> <b>Email : ${ company.email } </b><br>
+                        If you would like to join Dialectb2b.com for procurement activities, please use the individual signup option and join as a team member. 
+                        To learn more about this process, please click here.<br>
+                        However, If you find this registration suspicious, You can supersede the registration with a new account. To do this, you will need to go through 
+                        the diaectb2b.com verification process. To learn more about the dialectb2b.com verification process, please <a href="{{ url('faq') }}" target="_blank">Click here</a></p>`;
                     }
-                    $('#user_dtl').html(htmlcontent);
-                    $('#supersede-popup').modal('show'); 
-                    $('#ignore_btn').off('click').on('click', function () {
-                        window.location.href = '/';
+                    Swal.fire({
+                        html: htmlContent,
+                        showCancelButton: true,
+                        confirmButtonText: "Supersede",
+                        cancelButtonText: "Ignore", 
+                    }).then(function (willDelete) {
+                        if (willDelete.isConfirmed === true) {
+                             var actionUrl = "{{ route('sign-up.company-info.storeSupersede') }}"; 
+                             submitCompanyInfoSupersede(actionUrl,inputData);
+                        }
+                        else{
+                            window.location.href = '/';
+                        }
                     });
-
-                    $('#supersede_btn').off('click').on('click', function () {
-                        var actionUrl = "{{ route('sign-up.company-info.storeSupersede') }}";
-                        submitCompanyInfoSupersede(actionUrl, inputData);
-                        // $('#supersede-popup').modal('hide'); 
-                    });
-                    // Swal.fire({
-                    //     html: htmlContent,
-                    //     showCancelButton: true,
-                    //     confirmButtonText: "Supersede",
-                    //     cancelButtonText: "Ignore", 
-                    // }).then(function (willDelete) {
-                    //     if (willDelete.isConfirmed === true) {
-                    //          var actionUrl = "{{ route('sign-up.company-info.storeSupersede') }}"; 
-                    //          submitCompanyInfoSupersede(actionUrl,inputData);
-                    //     }
-                    //     else{
-                    //         window.location.href = '/';
-                    //     }
-                    // });
                 }
                 if (error.response.status == 422) {
                     clearErrorStates();

@@ -59,11 +59,15 @@ class CompanyInfoController extends Controller
         $docExists = CompanyDocument::where('doc_number',$input['document_no'])->where('company_id','!=',$company->id)->first();
         if($docExists){
             $admin = CompanyUser::where('company_id',$docExists->company_id)->where('role',1)->first();
+            $proct = CompanyUser::where('company_id',$docExists->company_id)->where('role',2)->first();
+            $sales = CompanyUser::where('company_id',$docExists->company_id)->where('role',3)->first();
             $existcompany = Company::find($docExists->company_id);
             return response()->json([
                 'status' => false,
                 'type' => 'superseed',
                 'admin' => $admin,
+                'proct' => $proct,
+                'sales' => $sales,
                 'company' => $existcompany,
                 'data' => $input,
                 'message' => 'Document already exists!',
